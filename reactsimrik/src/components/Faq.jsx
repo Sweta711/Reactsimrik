@@ -12,8 +12,8 @@ function Faq () {
     }
     const faq = [
         {
-            question : 'Why book bus tickets online on Simrik Yatayat? ',
-            answer : 'Booking bus tickets online on Simrik Yatayat is increasingly becoming the preferred choice for travellers due to its numerous advantages over traditional methods. With Simrik, customers can book their bus tickets effortlessly from the comfort of their homes, avoiding the inconvenience of standing in long lines at bus stations or travel agencies.Online bus booking offers the luxury of comparing different bus schedules and operators and presents various discount offers and exclusive deals, resulting in significant savings. Payment security is another notable feature of online booking, which ensures that your financial information is well-protected against fraud. Additionally, customers can pick their seats, providing a customized travel experience. Online bus booking platforms give real-time updates about any changes in the bus timetable, including delays or cancellations, enabling better planning. The convenience doesnot stop here,travellers can even compare onboard amenities like charging points further enhancing the travel experience.'},
+            question : 'Why book bus tickets online on Mero Bus? ',
+            answer : 'Booking bus tickets online on Mero Bus is increasingly becoming the preferred choice for travellers due to its numerous advantages over traditional methods. With Simrik, customers can book their bus tickets effortlessly from the comfort of their homes, avoiding the inconvenience of standing in long lines at bus stations or travel agencies.Online bus booking offers the luxury of comparing different bus schedules and operators and presents various discount offers and exclusive deals, resulting in significant savings. Payment security is another notable feature of online booking, which ensures that your financial information is well-protected against fraud. Additionally, customers can pick their seats, providing a customized travel experience. Online bus booking platforms give real-time updates about any changes in the bus timetable, including delays or cancellations, enabling better planning. The convenience doesnot stop here,travellers can even compare onboard amenities like charging points further enhancing the travel experience.'},
 
             {
             question: "Can I cancel my bus ticket?",
@@ -54,7 +54,7 @@ function Faq () {
                         Frequently Asked Questions
                     </span>
                 </div>
-                <p className="text-center text-[15px] text-[#777777] mt-[6px]">Find answers to common questions about Simrik Yatayat </p>
+                <p className="text-center text-[15px] text-[#777777] mt-[6px]">Find answers to common questions about Mero Bus </p>
             </div>
 
             <div className=" w-[70vw] p-5 pb-20 m-auto mt-10 flex flex-col">

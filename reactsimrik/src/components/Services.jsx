@@ -1,13 +1,16 @@
 import React from "react";
 import busInside from "../assets/busInside.jpg";
 import temple from "../assets/temple1.jpg";
+import servicebg from "../assets/mari.jpg";
 
 export default function Services(){
     return(
-        <section className="bg-[#e7e3da] py-[100px]">
-            <div className="max-w-[1400px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <section className="bg-fixed bg-cover bg-center  py-[100px]"
+        style={{ backgroundImage: `url(${servicebg})` }}>
+
+            <div className="bg-[#e7e3da]/87 rounded w-full h-full py-24 max-w-[1400px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
              {/* left Section */}
-                <div>
+                <div className="ml-9">
                     <h2 className="text-[34px] font-semibold text-black mb-10">
                         Our Services
                     </h2>
@@ -67,7 +70,7 @@ export default function Services(){
 
                 {/* RIGHT IMAGE (ARCH SHAPE) */}
 
-                    <div className="relative flex justify-center items-left">
+                    <div className="relative flex justify-center items-left mr-9">
                     {/* LEFT IMAGE (rounded-left shape) */}
                     <div className="
                         w-[350px] h-[460px] rounded-l-[40px] overflow-hidden shadow-xl

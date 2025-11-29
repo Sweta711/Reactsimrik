@@ -43,7 +43,7 @@ export default function Services() {
               Experience premium bus travel with comfortable seating,
               on-time departures, and exceptional service.
             </p>
-            <button className="mt-4 bg-[#1b5d67f5] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#549ca7c7] transition">
+            <button className="mt-4 bg-[#1b5d67f5] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#c8dee1c7] hover:text-[#1b5d67f5] transition">
               BOOK A SEAT NOW
             </button>
           </div>
@@ -53,12 +53,12 @@ export default function Services() {
         <div className="w-full lg:w-[45%] p-2 md:p-4">
 
           <h3 className="text-[18px] sm:text-[20px] font-bold text-gray-800 mt-[10px]">
-            HOW CAN I CHANGE MY TICKET?
+            HOW CAN I CHANGE MY TICKET ?
           </h3>
 
           <p className="text-gray-600 mt-3 text-[14px] sm:text-[15px] leading-relaxed">
             We offer flexible change and cancellation policies on most
-            Simrik Yatayat tickets. Fees may apply depending on the route
+            Mero Bus tickets. Fees may apply depending on the route
             and timing.
           </p>
 
@@ -93,7 +93,7 @@ export default function Services() {
           </div>
 
           {/* GET IT BUTTON */}
-          <button className="w-full mt-6 bg-[#1b5d67f5] text-white py-3 rounded-lg font-semibold hover:bg-[#549ca7c7]">
+          <button className="w-full mt-6 bg-[#1b5d67f5] text-white py-3 rounded-lg font-semibold hover:bg-[#c8dee1c7] hover:text-[#1b5d67f5]">
             Get it
           </button>
 

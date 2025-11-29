@@ -1,77 +1,99 @@
 import React from "react";
-import mountain from "../assets/mountain.jpg"; // imported image
+import mountain from "../assets/mountain.jpg";
 import esewa from "../assets/esewa-seeklogo.png";
 import {
-    FaMapMarkerAlt,
-    FaPhone,
-    FaWhatsapp,
-    FaEnvelope,
-    FaFacebookF,
-    FaInstagram,
-    FaLinkedinIn,
-    FaYoutube,
-    FaPinterestP
+FaFacebookF,
+FaInstagram,
+FaLinkedinIn,
+FaYoutube,
 } from "react-icons/fa";
 
 export default function Footer() {
-    return (
-    <footer
-        className="footer"
-        style={{ backgroundImage: `url(${mountain})` }}
-    >
+// Dynamic Data
+const socialIcons = [
+{ icon: <FaFacebookF />, link: "#" },
+{ icon: <FaInstagram />, link: "#" },
+{ icon: <FaYoutube />, link: "#" },
+{ icon: <FaLinkedinIn />, link: "#" },
+];
+
+const links = [
+{ title: "About Us", url: "#" },
+{ title: "Contact Us", url: "#" },
+{ title: "Terms & Conditions", url: "#" },
+];
+
+const paymentMethods = [
+{ name: "Esewa", img: esewa, url: "#" },
+// Add more payment methods here if needed
+];
+
+const techPartner = {
+name: "SINGHA TECHNE PVT. LTD.",
+description: "Software & Solutions Provider",
+};
+
+return (
+<footer className="footer" style={{ backgroundImage: `url(${mountain})` }}>
     <div className="footer-overlay"></div>
 
     <div className="footer-content fade-up">
-
-        {/* Left Section */}
-        <div className="footer-section">
+    {/* Left Section */}
+    <div className="footer-section">
         <p className="footer-title">
-            We are dedicated to providing swift, easy, and comfortable travel experiences.
-            Your journey is our priority.
+        We are dedicated to providing swift, easy, and comfortable travel
+        experiences. Your journey is our priority.
         </p>
 
         <p className="footer-sub">
-            Simrik Yatayat is committed to excellence in ground transportation.
+        Mero Bus is committed to excellence in ground transportation.
         </p>
 
-       
-
         <div className="footer-social-icons">
-            <FaFacebookF />
-            <FaInstagram />
-            <FaYoutube />
-            <FaLinkedinIn />
+        {socialIcons.map((social, index) => (
+            <a key={index} href={social.link}>
+            {social.icon}
+            </a>
+        ))}
         </div>
-        </div>
+    </div>
 
-        {/* Middle Column */}
-        <div className="footer-section">
-        <h3>SIMRIK YATAYAT</h3>
-        <a href="#">About Us</a>
-        <a href="#">Contact Us</a>
-        <a href="#">Terms & Conditions</a>
-        </div>
+    {/* Middle Column */}
+    <div className="footer-section">
+        <h3>Mero Bus</h3>
+        {links.map((link, index) => (
+        <a key={index} href={link.url}>
+            {link.title}
+        </a>
+        ))}
+    </div>
 
-        {/* Payment Column */}
-        <div className="footer-section">
+    {/* Payment Column */}
+    <div className="footer-section">
         <h3>We Accept</h3>
         <div className="payment-icons">
-            <img src={esewa} alt="Esewa" className="payment-logo" />
+        {paymentMethods.map((payment, index) => (
+            <a key={index} href={payment.url}>
+            <img src={payment.img} alt={payment.name} />
+            </a>
+        ))}
         </div>
-        </div>
+    </div>
 
-        {/* Technology Partner */}
-        <div className="footer-section">
+    {/* Technology Partner */}
+    <div className="footer-section">
         <h3>Technology Partner</h3>
-        <p className="tech-title">SINGHA TECHNE PVT. LTD.</p>
-        <p className="tech-sub">Software & Solutions Provider</p>
-        </div>
+        <p className="tech-title">{techPartner.name}</p>
+        <p className="tech-sub">{techPartner.description}</p>
+    </div>
+    </div>
 
-</div>
+    <hr className="border-t border-gray-300 my-15 mt-" />
 
     <div className="footer-bottom">
-        © 2025 Simrik Yatayat. All Rights Reserved. | Powered by SINGHA TECHNE PVT. LTD.
+    © 2025 Mero Bus. All Rights Reserved. | Powered by{" "}
+    {techPartner.name}
     </div>
-    </footer>
+</footer>
 );
 }

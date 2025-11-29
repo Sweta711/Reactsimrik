@@ -1,5 +1,5 @@
 import React from "react";
-import simrikbus from "../assets/simrikbus.jpg";
+import simrikbus from "../assets/busss.png";
 
 export default function Hero() {
     return (

@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import useScrollDirection from "../hooks/useScrollDirection";
+
 import kathmandu from "../assets/kaathmandu.jpg";
 import pokhara from "../assets/pokhara.jpg";
 import dharan from "../assets/dharan.jpg";
@@ -29,18 +32,22 @@ export default function Trending() {
         }
     ];
 
+    const direction = useScrollDirection();
+
 return (
 <section className="max-w-[1400px] mx-auto px-[20px] sm:px-[30px] py-[40px] sm:py-[30px]">
 
     {/* Title Section */}
-    <div className="mb-[25px] sm:mb-[35px]">
-    <h2 className="text-[28px] sm:text-[34px] font-semibold flex flex-wrap items-center gap-3 text-black">
+    <FadeUpWrapper direction={direction}>
+    <div className="mb-[25px] sm:mb-[35px] mt-10">
+    <h2 className="fade-up text-2xl md:text-[34px] font-bold text-black flex flex-wrap items-center gap-3 text-black">
         Trending destinations
         <span className="text-[16px] sm:text-[18px] text-gray-600 font-normal">
         from Kathmandu
         </span>
     </h2>
     </div>
+    </FadeUpWrapper>
 
     {/* Cards */}
     <div className="
@@ -54,11 +61,15 @@ return (
         lg:gap-[40px]
     ">
     {destinations.map((item, index) => (
+        <FadeUpWrapper key={index} direction={direction}>
         <div
         key={index}
         className="bg-white rounded-[18px] overflow-hidden shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
         >
-        <img src={item.img} className="w-full h-[180px] sm:h-[200px] object-cover" />
+        <div className="overflow-hidden rounded-xl">
+        <img src={item.img}
+        className="w-full h-[180px] sm:h-[250px] object-cover transition-transform duration-500 hover:scale-110" />
+        </div>
 
         <div className="p-5 sm:p-6">
             <h3 className="text-[20px] sm:text-[22px] font-bold mb-2">
@@ -69,13 +80,34 @@ return (
             {item.desc}
             </p>
 
-            <button className="w-full bg-[#1b5d67f5] text-white py-3 rounded-lg font-semibold hover:bg-[#549ca7c7] transition">
+            <button className="w-full bg-[#1b5d67f5] text-white py-3 rounded-lg font-semibold hover:bg-[#c8dee1c7] hover:text-[#1b5d67f5] transition">
             BOOK SEAT NOW
             </button>
         </div>
         </div>
+        </FadeUpWrapper>
     ))}
     </div>
 </section>
+);
+}
+
+function FadeUpWrapper({ children, direction }) {
+const ref = useRef();
+const isInView = useInView(ref, { once: false });
+
+return (
+<motion.div
+    ref={ref}
+    initial={{ opacity: 0, y: 40 }}
+    animate={
+    isInView && direction === "up"
+        ? { opacity: 1, y: 0 }
+        : { opacity: 1, y: 0 }
+    }
+    transition={{ duration: 0.6, ease: "easeOut" }}
+>
+    {children}
+</motion.div>
 );
 }
