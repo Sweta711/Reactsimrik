@@ -3,6 +3,7 @@ import logo from "../assets/logo.png";
 import womanbook from "../assets/womanbook.jpg";
 import { FaTimes } from "react-icons/fa";
 import BookingForWomenModal from "./BookingForWomen";
+import { useNavigate } from "react-router-dom";
 
 export default function NavbarBooking() {
 // dynamic data
@@ -10,6 +11,7 @@ const cities = ["Kathmandu", "Biratnagar", "Dharan", "Kakarvitta"];
 
 const [showMobileBooking, setShowMobileBooking] = useState(false);
 const [openWomenModal, setOpenWomenModal] = useState(false);
+const navigate=useNavigate();
 
 
 // controlled form state
@@ -229,7 +231,7 @@ return (
             <button
             id="searchBusButton"
             className="bg-[#1b5d67f5] text-white px-6 py-2 rounded-full font-semibold text-sm shadow-lg hover:bg-simrik-teal transition duration-300 w-full md:w-auto mt-2 md:mt-0"
-            onClick={handleSearch}
+                onClick={()=> navigate("/search-details")}
             >
             SEARCH BUS
             </button>
@@ -374,7 +376,7 @@ return (
             {/* SEARCH BUTTON */}
             <button
             className="bg-[#1b5d67f5] text-white mobile-search-button font-semibold shadow-lg hover:bg-simrik-teal transition w-full"
-            onClick={handleSearch}
+            onClick={()=> navigate("/search-details")}
             >
             SEARCH BUS
             </button>

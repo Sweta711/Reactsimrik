@@ -1,11 +1,15 @@
-import React from "react"; 
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
 import { TbRefresh } from "react-icons/tb";
 import { AiOutlineReload } from "react-icons/ai";
 import { FaMoneyBillWave } from "react-icons/fa";
 import supportimgg from "../assets/support.png";
 
+
 export default function Services() {
+  const navigate = useNavigate();
+
   return (
     <section className="px-4 md:px-10 py-[50px] bg-white">
 
@@ -18,14 +22,14 @@ export default function Services() {
 
       {/* MAIN CARD */}
       <div className="
-        max-w-[1300px] mx-auto bg-white rounded-[20px] shadow-xl 
+        max-w-[1300px] mx-auto bg-white rounded-[20px] shadow-xl
         px-4 md:px-10 py-10
         flex flex-col lg:flex-row gap-10 lg:gap-6
       ">
 
         {/* LEFT SIDE IMAGE CARD */}
         <div className="
-          w-full lg:w-[50%] 
+          w-full lg:w-[50%]
           rounded-[20px] overflow-hidden relative
         ">
           <img
@@ -87,13 +91,18 @@ export default function Services() {
             <p className="text-gray-800 font-medium">
               Priority Minimum Halides Refund
             </p>
-            <button className="text-[#008080] font-semibold flex items-center gap-1">
+
+
+            {/*<button className="text-[#008080] font-semibold flex items-center gap-1">
               View refund policy →
-            </button>
+            </button>*/}
+
+
           </div>
 
           {/* GET IT BUTTON */}
-          <button className="w-full mt-6 bg-[#1b5d67f5] text-white py-3 rounded-lg font-semibold hover:bg-[#c8dee1c7] hover:text-[#1b5d67f5]">
+          <button onClick={()=> navigate("/terms-details")}
+          className="w-full mt-6 bg-[#1b5d67f5] text-white py-3 rounded-lg font-semibold hover:bg-[#c8dee1c7] hover:text-[#1b5d67f5]">
             Get it
           </button>
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Tag } from "lucide-react";
 import bus1 from "../assets/bus1.jpg";
@@ -18,8 +19,9 @@ import ev2 from "../assets/ev1.jpg";
 import ev3 from "../assets/ev1.jpg";
 
 export default function Rental(){
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("All");
-    const tabs = ["All", "Bus", "Jeep", "Hiace","Ev"];
+    const tabs = ["All", "Bus", "Jeep", "Hiace","EV"];
     const travel=[
         {
             type: "Bus",
@@ -116,7 +118,9 @@ activeTab === "All"
                 <h2 className="fade-up text-2xl md:text-3xl font-bold ">
                 Travel & Rental Services
                 </h2>
-                <button className="text-white rounded-full border  flex  px-8 py-2 bg-[#1b5d67f5] text-bold hover:bg-[#c8dee1c7] hover:text-black cursor-pointer">Learn more</button>
+                <button onClick={()=> navigate("/rental-details")}
+                className="text-white rounded-full border  flex  px-8 py-2 bg-[#1b5d67f5] text-bold hover:bg-[#c8dee1c7] hover:text-black cursor-pointer"
+                >Learn more</button>
             </div>
 
             {/* Tabs */}

@@ -28,7 +28,7 @@ export default function Trending() {
         {
         name: "Biratnagar",
         img: biratnagar,
-        desc: "Industrial city with cultural significance."
+        desc: "Industrial city with the cultural significance."
         }
     ];
 

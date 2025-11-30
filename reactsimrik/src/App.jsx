@@ -1,42 +1,54 @@
-import TopBar from "./components/Topbar";
+import { BrowserRouter, Routes, Route, useLocation} from "react-router-dom";
+
+import Topbar from "./components/Topbar";
 import Navbar from "./components/Navbar";
 import BookingForWomen from "./components/BookingForWomen";
-import Hero from "./components/Hero";
-import Offer from "./components/Offer";
-import Rental from "./components/Rental";
-import Services from "./components/Services";
-import Trending from "./components/Trending";
-import Support from "./components/Support";
-import Review from "./components/Reviews"
-import Faq from "./components/Faq";
-import Footer from "./components/Footer";
+
+import Home from "./Home";
+import SearchBus from "./components/SearchBus";
+import RentalDetails from "./components/RentalDetails";
+import Terms from "./components/Terms";
 
 
-function App() {
+function LayoutWithNavbar({ children }) {
+  const location = useLocation();
+  // pages where navbar should NOT appear
+  const noNavbarPaths = ["/search-details"];
+
+  const showNavbar = !noNavbarPaths.includes(location.pathname);
   return (
     <>
-      {/* Fixed Header*/}
-      <div className="fixed top-0 left-0 w-full z-50">
-        <TopBar />
-        <Navbar />
-        <BookingForWomen />
-      </div>
+      {/* Fixed header (conditionally) */}
+      {showNavbar && (
+        <div className="fixed top-0 left-0 w-full z-50">
+          <Topbar />
+          <Navbar />
+          <BookingForWomen />
+        </div>
+      )}
 
-
-      {/* Page Content*/}
-      <div className="pt-[120px]">
-        <Hero />
-        <Offer />
-        <Rental />
-        <Services />
-        <Trending />
-        <Support />
-        <Review />
-        <Faq />
-        <Footer />
+      {/* Page content */}
+      <div className={showNavbar ? "pt-[120px]" : "pt-0"}>
+        {children}
       </div>
     </>
   );
 }
 
+function App() {
+  return (
+    <BrowserRouter>
+      <LayoutWithNavbar>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search-details" element={<SearchBus />} />
+          <Route path="/rental-details" element={<RentalDetails />} />
+          <Route path="/terms-details" element={<Terms />} />
+        </Routes>
+      </LayoutWithNavbar>
+    </BrowserRouter>
+  );
+}
+
 export default App;
+
