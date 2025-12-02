@@ -229,7 +229,7 @@ closeSeatModal();
 };
 
 return (
-<div className="min-h-screen bg-black/10 p-10 font-[system-ui] ">
+<div className="min-h-screen fixed inset-0 bg-black/50 backdrop-blur-sm bg-black/10 p-10 font-[system-ui] ">
     {/* MAIN RESULTS */}
     <main className="flex justify-center items-start px-4 pt-6 pb-8">
     <section className="w-full max-w-[960px] bg-white rounded-[24px] p-[20px] pb-[18px] shadow-[0_20px_50px_rgba(15,23,42,0.15)]">
@@ -324,7 +324,7 @@ return (
             </div>
 
             {/* TABS */}
-            <div className="mt-[10px] pt-[10px] border-t border-slate-200 flex flex-wrap gap-[10px] text-[12px]">
+            <div className="mt-[10px] pt-[10px] border-t border-slate-200 flex flex-wrap gap-4 text-[12px]">
                 {[
                 { key: "amenities", label: "Amenities" },
                 { key: "boarding", label: "Boarding & Dropping Point" },

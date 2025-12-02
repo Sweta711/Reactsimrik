@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-
-
 function Terms({ initialTab = "terms" }) {
 const [activeTab, setActiveTab] = useState(initialTab);
 const [isSubmitted, setIsSubmitted] = useState(false);
@@ -61,7 +59,7 @@ return () => {
 
 /* PageTitle component */
 const PageTitle = () => (
-<div className="animate-on-scroll max-w-3xl mx-auto text-center mt-20 mb-6">
+<div className="animate-on-scroll max-w-3xl mx-auto text-center mt-15 mb-6">
     <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900">
     Legal &amp; Booking Information
     </h1>
@@ -74,7 +72,7 @@ const PageTitle = () => (
 
 /* Terms & Conditions */
 const TermsConditions = () => (
-<div className="content-section animate-on-scroll">
+<div className="content-section animate-on-scroll ">
     <h2 className="text-emerald-600 text-xl font-semibold mb-3">
     Simrik Yatayat – Terms &amp; Conditions
     </h2>
