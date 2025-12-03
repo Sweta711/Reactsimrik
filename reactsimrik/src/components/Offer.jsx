@@ -106,7 +106,7 @@ return (
         }}
         >
         {/* Dark overlay */}
-        <div className="absolute inset-0  bg-black/30 group-hover:bg-teal-200/30 transition "></div>
+        <div className="absolute inset-0  bg-black/30 group-hover:bg-teal-800/10 transition "></div>
 
         {/* Content */}
         <div className="absolute inset-0 p-9 px-5  flex flex-col justify-between  text-bold text-teal-950 ">

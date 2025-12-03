@@ -233,7 +233,7 @@ return (
             className="bg-[#1b5d67f5] text-white px-6 py-2 rounded-full font-semibold text-sm shadow-lg hover:bg-simrik-teal transition duration-300 w-full md:w-auto mt-2 md:mt-0"
                 onClick={()=> navigate("/search-details")}
             >
-            SEARCH BUS
+            SEARCH
             </button>
         </div>
         
@@ -378,7 +378,7 @@ return (
             className="bg-[#1b5d67f5] text-white mobile-search-button font-semibold shadow-lg hover:bg-simrik-teal transition w-full"
             onClick={()=> navigate("/search-details")}
             >
-            SEARCH BUS
+            SEARCH
             </button>
         </div>
         )}

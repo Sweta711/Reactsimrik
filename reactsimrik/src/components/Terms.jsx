@@ -59,7 +59,7 @@ return () => {
 
 /* PageTitle component */
 const PageTitle = () => (
-<div className="animate-on-scroll max-w-3xl mx-auto text-center mt-15 mb-6">
+<div className="animate-on-scroll max-w-3xl mx-auto text-center mt-20 mb-6">
     <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900">
     Legal &amp; Booking Information
     </h1>

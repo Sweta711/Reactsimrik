@@ -1,5 +1,6 @@
 import React from "react";
 import simrikbus from "../assets/busss.png";
+import FloatingWhatsappButton from "./whatsApp";
 
 export default function Hero() {
     return (
@@ -16,6 +17,9 @@ export default function Hero() {
 
                     <button className="hero-btn">BOOK A SEAT NOW</button>
                 </div>
+
+                {/* ✅ WhatsApp floating button inside Hero */}
+                <FloatingWhatsappButton />
             </div>
         </section>
     );

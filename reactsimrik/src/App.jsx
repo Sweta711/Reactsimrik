@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation} from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import Topbar from "./components/Topbar";
 import Navbar from "./components/Navbar";
@@ -9,17 +9,23 @@ import SearchBus from "./components/SearchBus";
 import RentalDetails from "./components/RentalDetails";
 import Terms from "./components/Terms";
 
-
-function LayoutWithNavbar({ children }) {
+// This component decides when to show navbar
+function Layout({ children }) {
   const location = useLocation();
-  // pages where navbar should NOT appear
-  const noNavbarPaths = ["/search-details"];
 
-  const showNavbar = !noNavbarPaths.includes(location.pathname);
+  // All the pages where you DON'T want navbar
+  const hideNavbarOn = [
+    "/search-details",
+    "/rental-details"   // 👈 Add this line to hide navbar on rental page
+  ];
+
+  // Check if current page is in the list
+  const shouldHideNavbar = hideNavbarOn.includes(location.pathname);
+
   return (
     <>
-      {/* Fixed header (conditionally) */}
-      {showNavbar && (
+      {/* Show navbar ONLY if shouldHideNavbar is false */}
+      {!shouldHideNavbar && (
         <div className="fixed top-0 left-0 w-full z-50">
           <Topbar />
           <Navbar />
@@ -27,8 +33,8 @@ function LayoutWithNavbar({ children }) {
         </div>
       )}
 
-      {/* Page content */}
-      <div className={showNavbar ? "pt-[120px]" : "pt-0"}>
+      {/* Add top padding ONLY when navbar exists */}
+      <div className={shouldHideNavbar ? "pt-0" : "pt-[120px]"}>
         {children}
       </div>
     </>
@@ -38,17 +44,16 @@ function LayoutWithNavbar({ children }) {
 function App() {
   return (
     <BrowserRouter>
-      <LayoutWithNavbar>
+      <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search-details" element={<SearchBus />} />
           <Route path="/rental-details" element={<RentalDetails />} />
           <Route path="/terms-details" element={<Terms />} />
         </Routes>
-      </LayoutWithNavbar>
+      </Layout>
     </BrowserRouter>
   );
 }
 
 export default App;
-

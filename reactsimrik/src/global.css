@@ -1147,7 +1147,24 @@ body {
   color:#1b5d67f5;
 }
 
+.wave-animation {
+  background-color: rgba(37, 211, 102, 0.4);
+  animation: wave 1s infinite ease-out;
+}
 
+@keyframes wave {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 
 /* 📱 Mobile Devices (≤480px) */
 @media (max-width: 480px) {
@@ -1314,4 +1331,12 @@ body {
   color: #ffffff;
   font-size: 14px;
 
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }

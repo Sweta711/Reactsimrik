@@ -1,4 +1,5 @@
 import Hero from "./components/Hero";
+import whatsApp from "./components/whatsApp";
 import Offer from "./components/Offer";
 import Rental from "./components/Rental";
 import Services from "./components/Services";
@@ -12,6 +13,7 @@ export default function Home() {
 return (
 <>
     <Hero />
+    <whatsApp />
     <Offer />
     <Rental />
     <Services />

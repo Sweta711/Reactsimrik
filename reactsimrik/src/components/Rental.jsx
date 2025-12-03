@@ -88,19 +88,19 @@ export default function Rental(){
         },
 
         {
-            type: "Ev",
+            type: "EV",
             title: "Pokhara",
             image: ev1,
         },
 
         {
-            type: "Ev",
+            type: "EV",
             title: "kathmandu",
             image: ev2,
         },
 
         {
-            type: "Ev",
+            type: "EV",
             title: "Dharan",
             image: ev3,
         },

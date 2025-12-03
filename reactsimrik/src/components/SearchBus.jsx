@@ -4,6 +4,7 @@ import jeepImg from "../assets/jeep.png";
 import hiaceImg from "../assets/hiace.png";
 
 /* gallery / interior images */
+
 // BUS interiors
 import busSeatStandard from "../assets/seat.webp";
 import busSeatDeluxe from "../assets/busSeat.jpeg";
@@ -192,8 +193,12 @@ womenIds: ["1A", "3B", "5C"],
 const BusBookingApp = () => {
 const [selectedBus, setSelectedBus] = useState(null);
 const [selectedSeats, setSelectedSeats] = useState([]);
-const [expandedBusId, setExpandedBusId] = useState(vehicles[0].id);
-const [expandedTab, setExpandedTab] = useState("amenities");
+
+const [expanded, setExpanded] = useState({
+    id: null,
+    tab: null,
+});
+
 
 const seatPrice = selectedBus ? selectedBus.price : 0;
 const totalPrice = selectedSeats.length * seatPrice;
@@ -331,7 +336,7 @@ return (
                 { key: "gallery", label: "Gallery" },
                 ].map((tab) => {
                 const active =
-                    expandedBusId === bus.id && expandedTab === tab.key;
+                    expanded.id=== bus.id && expanded.tab=== tab.key;
 
                 return (
                     <button
@@ -342,8 +347,8 @@ return (
                         : "border-b-2 border-transparent text-gray-500"
                     }`}
                     onClick={() => {
-                        setExpandedBusId(bus.id);
-                        setExpandedTab(tab.key);
+                        setExpanded({ id: bus.id, tab: tab.key });
+
                     }}
                     >
                     {tab.label}
@@ -351,80 +356,72 @@ return (
                 );
                 })}
             </div>
+{/* TAB CONTENT */}
+{expanded.id === bus.id && (
+  <div className="mt-2 bg-[#f9fafb] rounded-[12px] px-3 py-[10px] text-[13px] text-slate-600 tracking-[0.3px]">
+    
+    {/* Amenities */}
+    {expanded.tab === "amenities" && (
+      <>
+        {bus.amenities?.length ? (
+          <ul className="m-0 pl-[18px] tracking-[0.25px] list-disc">
+            {bus.amenities.map((item) => (
+              <li key={item} className="mb-1 text-slate-600">{item}</li>
+            ))}
+          </ul>
+        ) : (
+          <p className="m-0 text-[12px] text-gray-400">
+            No amenities information available.
+          </p>
+        )}
+      </>
+    )}
 
-            {/* TAB CONTENT */}
-            {expandedBusId === bus.id && (
-                <div className="mt-2 bg-[#f9fafb] rounded-[12px] px-3 py-[10px] text-[13px] text-slate-600 tracking-[0.3px]">
-                {expandedTab === "amenities" && (
-                    <>
-                    {bus.amenities?.length ? (
-                        <ul className="m-0 pl-[18px] tracking-[0.25px] list-disc">
-                        {bus.amenities.map((item) => (
-                            <li key={item} className="mb-1 text-slate-600">
-                            {item}
-                            </li>
-                        ))}
-                        </ul>
-                    ) : (
-                        <p className="m-0 text-[12px] text-gray-400">
-                        No amenities information available.
-                        </p>
-                    )}
-                    </>
-                )}
+    {/* Boarding & Dropping */}
+    {expanded.tab === "boarding" && (
+      <div className="flex flex-wrap gap-6">
+        <div>
+          <h4 className="m-0 mb-1 text-[13px] font-semibold">Boarding Point</h4>
+          <ul className="m-0 pl-[18px] list-disc">
+            {bus.boardingPoints.map((bp) => (
+              <li key={bp} className="mb-1 text-slate-600">{bp}</li>
+            ))}
+          </ul>
+        </div>
 
-                {expandedTab === "boarding" && (
-                    <div className="flex flex-wrap gap-6">
-                    <div>
-                        <h4 className="m-0 mb-1 text-[13px] font-semibold">
-                        Boarding Point
-                        </h4>
-                        <ul className="m-0 pl-[18px] tracking-[0.25px] list-disc">
-                        {bus.boardingPoints.map((bp) => (
-                            <li key={bp} className="mb-1 text-slate-600">
-                            {bp}
-                            </li>
-                        ))}
-                        </ul>
-                    </div>
+        <div>
+          <h4 className="m-0 mb-1 text-[13px] font-semibold">Dropping Point</h4>
+          <ul className="m-0 pl-[18px] list-disc">
+            {bus.droppingPoints.map((dp) => (
+              <li key={dp} className="mb-1 text-slate-600">{dp}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    )}
 
-                    <div>
-                        <h4 className="m-0 mb-1 text-[13px] font-semibold">
-                        Dropping Point
-                        </h4>
-                        <ul className="m-0 pl-[18px] tracking-[0.25px] list-disc">
-                        {bus.droppingPoints.map((dp) => (
-                            <li key={dp} className="mb-1 text-slate-600">
-                            {dp}
-                            </li>
-                        ))}
-                        </ul>
-                    </div>
-                    </div>
-                )}
+    {/* Gallery */}
+    {expanded.tab === "gallery" && (
+      <>
+        {bus.gallery?.length ? (
+          <div className="flex flex-wrap gap-3">
+            {bus.gallery.map((img, index) => (
+              <img
+                key={index}
+                src={img}
+                alt={`${bus.name} interior ${index + 1}`}
+                className="w-[120px] h-[90px] object-cover rounded-[12px] shadow-[0_6px_14px_rgba(15,23,42,0.15)] cursor-pointer transition-transform duration-200 hover:scale-[1.06]"
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="m-0 text-[12px] text-gray-400">No gallery available.</p>
+        )}
+      </>
+    )}
+  </div>
+)}
 
-                {expandedTab === "gallery" && (
-                    <>
-                    {bus.gallery?.length ? (
-                        <div className="flex flex-wrap gap-3">
-                        {bus.gallery.map((img, index) => (
-                            <img
-                            key={index}
-                            src={img}
-                            alt={`${bus.name} interior ${index + 1}`}
-                            className="w-[120px] h-[90px] object-cover rounded-[12px] shadow-[0_6px_14px_rgba(15,23,42,0.15)] cursor-pointer transition-transform duration-200 hover:scale-[1.06]"
-                            />
-                        ))}
-                        </div>
-                    ) : (
-                        <p className="m-0 text-[12px] text-gray-400">
-                        No gallery available.
-                        </p>
-                    )}
-                    </>
-                )}
-                </div>
-            )}
             </article>
         ))}
         </div>
