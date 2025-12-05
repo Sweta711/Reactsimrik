@@ -230,7 +230,7 @@ return (
 
             <button
             id="searchBusButton"
-            className="bg-[#1b5d67f5] text-white px-6 py-2 rounded-full font-semibold text-sm shadow-lg hover:bg-simrik-teal transition duration-300 w-full md:w-auto mt-2 md:mt-0"
+            className="bg-[#1b5d67f5] text-white px-6 py-4 rounded-full font-semibold text-sm shadow-lg hover:bg-simrik-teal transition duration-300 w-full md:w-auto mt-2 md:mt-0"
                 onClick={()=> navigate("/search-details")}
             >
             SEARCH

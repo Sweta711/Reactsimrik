@@ -88,10 +88,10 @@ return (
     </div>
     </div>
 
-    <hr className="border-t border-gray-300 my-15 mt-" />
+    <hr className="border-t border-gray-300 my-18" />
 
     <div className="footer-bottom">
-    © 2025 Mero Bus. All Rights Reserved. | Powered by{" "}
+    © 2025 Mero Bus. All Rights Reserved. | Powered by {"Singha Techne IT Solution"}
     {techPartner.name}
     </div>
 </footer>

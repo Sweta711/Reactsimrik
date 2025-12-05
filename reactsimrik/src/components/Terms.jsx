@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import Footer from "./Footer";
 
 function Terms({ initialTab = "terms" }) {
 const [activeTab, setActiveTab] = useState(initialTab);
 const [isSubmitted, setIsSubmitted] = useState(false);
 
-// Scroll animation: add Tailwind classes when element comes into view
+// Scroll Animation Effect
 useEffect(() => {
 const isElementInViewport = (el) => {
     const rect = el.getBoundingClientRect();
@@ -19,66 +20,40 @@ const handleScrollAnimation = () => {
     const elements = document.querySelectorAll(
     ".animate-on-scroll, .stagger-animation"
     );
-    elements.forEach((element, idx) => {
+    elements.forEach((element) => {
     if (isElementInViewport(element)) {
-        // add Tailwind utility classes for fade-up effect
-        element.classList.add(
-        "opacity-100",
-        "translate-y-0",
-        "duration-700",
-        "ease-out"
-        );
-        // if it's a stagger, add a small delay using inline style
-        if (element.classList.contains("stagger-animation")) {
-        element.style.transitionDelay = `${idx * 50}ms`;
-        }
+        element.classList.add("animated");
     }
     });
 };
 
-// initialize elements to hidden + slightly translated
-const init = () => {
-    const elements = document.querySelectorAll(
-    ".animate-on-scroll, .stagger-animation"
-    );
-    elements.forEach((el) => {
-    el.classList.add("opacity-0", "translate-y-2");
-    });
-};
-
-init();
 handleScrollAnimation();
 window.addEventListener("scroll", handleScrollAnimation);
-window.addEventListener("resize", handleScrollAnimation);
-
-return () => {
-    window.removeEventListener("scroll", handleScrollAnimation);
-    window.removeEventListener("resize", handleScrollAnimation);
-};
+return () => window.removeEventListener("scroll", handleScrollAnimation);
 }, []);
 
-/* PageTitle component */
+// Page Title Component
 const PageTitle = () => (
-<div className="animate-on-scroll max-w-3xl mx-auto text-center mt-20 mb-6">
-    <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900">
+<div className="text-center mt-8 sm:mt-10 mb-5 sm:mb-7 animate-on-scroll">
+    <h1 className="font-bold text-2xl sm:text-3xl md:text-[38px]">
     Legal &amp; Booking Information
     </h1>
-    <p className="mt-2 text-sm text-slate-600">
+    <p className="mt-2 text-sm sm:text-[16px] text-[#d1d5db] px-4 sm:px-0">
     Please review Simrik Yatayat’s booking terms, policies and consultation
     support.
     </p>
 </div>
 );
 
-/* Terms & Conditions */
+// TERMS & CONDITIONS
 const TermsConditions = () => (
-<div className="content-section animate-on-scroll ">
-    <h2 className="text-emerald-600 text-xl font-semibold mb-3">
-    Simrik Yatayat – Terms &amp; Conditions
+<div className="animate-on-scroll  text-black leading-[1.65] text-sm sm:text-[15px] text-left">
+    <h2 className="text-[#00A3A3] mb-2">
+    Mero Bus – Terms &amp; Conditions
     </h2>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">1. Definitions</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
+    <h3 className="mt-6 text-[#00A3A3]">1. Definitions</h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
     <li>
         <strong>“Passenger”</strong> – Any person in whose name a ticket is
         issued and who is travelling in our vehicle.
@@ -93,9 +68,12 @@ const TermsConditions = () => (
     </li>
     </ul>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">2. Booking &amp; Ticketing</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
-    <li>Tickets may be booked online, via authorised agents or at Simrik counters.</li>
+    <h3 className="mt-6 text-[#00A3A3]">2. Booking &amp; Ticketing</h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
+    <li>
+        Tickets may be booked online, via authorised agents or at Simrik
+        counters.
+    </li>
     <li>
         A booking is confirmed only after full payment is received and a
         ticket / confirmation SMS is issued.
@@ -110,8 +88,8 @@ const TermsConditions = () => (
     </li>
     </ul>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">3. Reporting Time &amp; Boarding</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
+    <h3 className="mt-6 text-[#00A3A3]">3. Reporting Time &amp; Boarding</h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
     <li>
         Passengers must report at the selected boarding point at least{" "}
         <strong>30 minutes</strong> before departure time.
@@ -126,8 +104,10 @@ const TermsConditions = () => (
     </li>
     </ul>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">4. Seat Allocation &amp; “Booking for Women”</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
+    <h3 className="mt-6 text-[#00A3A3]">
+    4. Seat Allocation &amp; “Booking for Women”
+    </h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
     <li>
         Seats are allotted as per the booking system. While we try to honour
         seat preferences, we may change seats for safety or operational
@@ -149,8 +129,8 @@ const TermsConditions = () => (
     </li>
     </ul>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">5. Fares, Payments &amp; Taxes</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
+    <h3 className="mt-6 text-[#00A3A3]">5. Fares, Payments &amp; Taxes</h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
     <li>
         Ticket prices are dynamic and may vary based on date, demand,
         promotions or seat type (Deluxe, Sleeper, Jeep, Hiace, etc.).
@@ -166,14 +146,25 @@ const TermsConditions = () => (
     </li>
     </ul>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">6. Cancellations, Changes &amp; Refunds</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
+    <h3 className="mt-6 text-[#00A3A3]">
+    6. Cancellations, Changes &amp; Refunds
+    </h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
     <li>
         <strong>Passenger-initiated cancellation</strong>:
-        <ul className="list-disc ml-5 mt-1">
-        <li>≥ 24 hours before departure – up to <strong>80% refund</strong> after applicable charges.</li>
-        <li>12–24 hours before departure – up to <strong>50% refund</strong>.</li>
-        <li>&lt; 12 hours before departure or no-show – <strong>no refund</strong>.</li>
+        <ul className="ml-5 sm:ml-[18px] list-disc mt-1">
+        <li>
+            ≥ 24 hours before departure – up to{" "}
+            <strong>80% refund</strong> after applicable charges.
+        </li>
+        <li>
+            12–24 hours before departure – up to{" "}
+            <strong>50% refund</strong>.
+        </li>
+        <li>
+            &lt; 12 hours before departure or no-show –{" "}
+            <strong>no refund</strong>.
+        </li>
         </ul>
     </li>
     <li>
@@ -184,7 +175,7 @@ const TermsConditions = () => (
     <li>
         If a journey is cancelled by Simrik Yatayat due to operational or
         safety reasons, passengers will be offered either:
-        <ul className="list-disc ml-5 mt-1">
+        <ul className="ml-5 sm:ml-[18px] list-disc mt-1">
         <li>Full refund of base fare, or</li>
         <li>Free rescheduling on the next available service.</li>
         </ul>
@@ -196,8 +187,8 @@ const TermsConditions = () => (
     </li>
     </ul>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">7. Luggage &amp; Baggage Policy</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
+    <h3 className="mt-6 text-[#00A3A3]">7. Luggage &amp; Baggage Policy</h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
     <li>
         Each passenger is generally allowed one cabin bag and one checked-in
         bag of reasonable weight (typical range 15–20 kg; the exact limit may
@@ -218,8 +209,8 @@ const TermsConditions = () => (
     </li>
     </ul>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">8. Conduct on Board</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
+    <h3 className="mt-6 text-[#00A3A3]">8. Conduct on Board</h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
     <li>
         Passengers must follow all reasonable instructions of the driver,
         helper and company staff.
@@ -235,8 +226,10 @@ const TermsConditions = () => (
     </li>
     </ul>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">9. Delays, Route Changes &amp; Force Majeure</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
+    <h3 className="mt-6 text-[#00A3A3]">
+    9. Delays, Route Changes &amp; Force Majeure
+    </h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
     <li>
         While we aim to maintain the scheduled departure and arrival times,
         delays may occur due to traffic, road conditions, weather, bandhs,
@@ -254,8 +247,10 @@ const TermsConditions = () => (
     </li>
     </ul>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">10. Vehicle Type &amp; Amenities</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
+    <h3 className="mt-6 text-[#00A3A3]">
+    10. Vehicle Type &amp; Amenities
+    </h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
     <li>
         Images of buses, jeeps, Hiace and seat layouts shown in the gallery
         are indicative. Actual interiors may differ slightly based on model
@@ -272,8 +267,10 @@ const TermsConditions = () => (
     </li>
     </ul>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">11. Children, Seniors &amp; Special Assistance</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
+    <h3 className="mt-6 text-[#00A3A3]">
+    11. Children, Seniors &amp; Special Assistance
+    </h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
     <li>
         Children below a certain age/height may be required to share seats
         with an accompanying adult based on company policy.
@@ -289,8 +286,8 @@ const TermsConditions = () => (
     </li>
     </ul>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">12. Pets &amp; Restricted Items</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
+    <h3 className="mt-6 text-[#00A3A3]">12. Pets &amp; Restricted Items</h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
     <li>
         Pets and live animals are generally not allowed unless explicitly
         permitted by company policy for specific routes.
@@ -301,8 +298,8 @@ const TermsConditions = () => (
     </li>
     </ul>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">13. Limitation of Liability</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
+    <h3 className="mt-6 text-[#00A3A3]">13. Limitation of Liability</h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
     <li>
         To the maximum extent permitted by law, Simrik Yatayat’s total
         liability for any claim arising out of a journey is limited to the
@@ -315,8 +312,8 @@ const TermsConditions = () => (
     </li>
     </ul>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">14. Privacy &amp; Data</h3>
-    <p className="text-sm text-slate-800 leading-relaxed mt-2">
+    <h3 className="mt-6 text-[#00A3A3]">14. Privacy &amp; Data</h3>
+    <p>
     We collect passenger information (such as name, mobile number, gender
     and journey details) only for the purpose of processing bookings,
     providing service updates and complying with legal obligations. Data is
@@ -324,50 +321,69 @@ const TermsConditions = () => (
     parties.
     </p>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">15. Governing Law &amp; Dispute Resolution</h3>
-    <p className="text-sm text-slate-800 leading-relaxed mt-2">
+    <h3 className="mt-6 text-[#00A3A3]">
+    15. Governing Law &amp; Dispute Resolution
+    </h3>
+    <p>
     These Terms are governed by the laws of Nepal. Any disputes shall
     preferably be resolved amicably. If unresolved, they may be referred to
     the competent courts / authorities within Nepal.
     </p>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">16. Contact &amp; Support</h3>
-    <p className="text-sm text-slate-800 leading-relaxed mt-2">
+    <h3 className="mt-6 text-[#00A3A3]">16. Contact &amp; Support</h3>
+    <p>
     For any questions regarding these Terms, cancellations, lost items or
     feedback, please contact Simrik Yatayat customer support at:
     </p>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
-    <li><strong>Phone:</strong> +977-XXX-XXX-XXXX</li>
-    <li><strong>Email:</strong> support@simrikyatayat.com</li>
-    <li><strong>Office:</strong> Koteshwor, Kathmandu, Nepal</li>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
+    <li>
+        <strong>Phone:</strong> +977-XXX-XXX-XXXX
+    </li>
+    <li>
+        <strong>Email:</strong> support@simrikyatayat.com
+    </li>
+    <li>
+        <strong>Office:</strong> Koteshwor, Kathmandu, Nepal
+    </li>
     </ul>
 </div>
 );
 
-/* Privacy Policy */
+// Privacy Policy
 const PrivacyPolicy = () => (
-<div className="content-section animate-on-scroll">
-    <h2 className="text-emerald-600 text-xl font-semibold mb-3">Privacy Policy</h2>
-    <p className="text-sm text-slate-800 leading-relaxed">
+<div className="animate-on-scroll text-black leading-[1.65] text-sm sm:text-[15px] text-left">
+    <h2 className="text-[#1b5d67f5] mb-2">Privacy Policy</h2>
+    <p>
     Simrik Yatayat respects your privacy and is committed to protecting your
     personal information. This policy explains how we collect, use and
     safeguard the data you share with us when you book tickets or use our
     website / mobile applications.
     </p>
 
-    <div className="highlight-box mt-4 p-4 rounded-md bg-emerald-50 border-l-4 border-emerald-500">
-    <p className="text-sm text-emerald-800"><strong>Last Updated:</strong> 30 Nov 2025</p>
+    <div className="mt-5 mb-5 px-4 sm:px-5 py-4 rounded-[10px] bg-[rgba(0,163,163,0.08)] border-l-4 border-[#00A3A3]">
+    <p>
+        <strong>Last Updated:</strong> 30 Nov 2025
+    </p>
     </div>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">1. Information We Collect</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
-    <li><strong>Identity &amp; Contact:</strong> Name, phone number, email, gender, nationality.</li>
-    <li><strong>Booking Details:</strong> Routes, dates, seat numbers, payment method (masked), transaction IDs.</li>
-    <li><strong>Technical Data:</strong> IP address, browser type, device type, approximate location, cookies.</li>
+    <h3 className="mt-6 text-[#00A3A3]">1. Information We Collect</h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
+    <li>
+        <strong>Identity &amp; Contact:</strong> Name, phone number, email,
+        gender, nationality.
+    </li>
+    <li>
+        <strong>Booking Details:</strong> Routes, dates, seat numbers, payment
+        method (masked), transaction IDs.
+    </li>
+    <li>
+        <strong>Technical Data:</strong> IP address, browser type, device
+        type, approximate location, cookies.
+    </li>
     </ul>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">2. How We Use Your Information</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
+    <h3 className="mt-6 text-[#00A3A3]">2. How We Use Your Information</h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
     <li>To create and manage your bookings and issue tickets.</li>
     <li>To send SMS / email updates about your trip (delays, changes).</li>
     <li>To handle customer support, refund and complaint requests.</li>
@@ -375,45 +391,52 @@ const PrivacyPolicy = () => (
     <li>To comply with legal, tax and regulatory requirements.</li>
     </ul>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">3. Sharing of Information</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
+    <h3 className="mt-6 text-[#00A3A3]">3. Sharing of Information</h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
     <li>With payment gateways and banks to process transactions.</li>
     <li>With technology partners who host our booking systems.</li>
-    <li>With law enforcement or regulators when legally required or to prevent fraud or misuse.</li>
+    <li>
+        With law enforcement or regulators when legally required or to prevent
+        fraud or misuse.
+    </li>
     </ul>
-    <p className="text-sm text-slate-800 mt-2">We do not sell your personal data to third-party marketers.</p>
+    <p>We do not sell your personal data to third-party marketers.</p>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">4. Data Security &amp; Retention</h3>
-    <p className="text-sm text-slate-800 leading-relaxed mt-2">
+    <h3 className="mt-6 text-[#00A3A3]">4. Data Security &amp; Retention</h3>
+    <p>
     We use reasonable technical and organisational measures to protect your
     information from unauthorized access, alteration or loss. Data is
     retained only for as long as necessary for bookings, legal obligations
     or dispute resolution.
     </p>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">5. Your Rights</h3>
-    <ul className="list-disc ml-5 mt-2 text-sm text-slate-800 leading-relaxed">
+    <h3 className="mt-6 text-[#00A3A3]">5. Your Rights</h3>
+    <ul className="ml-5 sm:ml-[18px] list-disc">
     <li>Request access to the personal information we hold about you.</li>
     <li>Request correction of inaccurate or incomplete data.</li>
-    <li>Request deletion of your data, subject to legal / accounting requirements.</li>
+    <li>
+        Request deletion of your data, subject to legal / accounting
+        requirements.
+    </li>
     <li>Opt out of non-essential marketing SMS or emails.</li>
     </ul>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">6. Cookies</h3>
-    <p className="text-sm text-slate-800 leading-relaxed mt-2">
+    <h3 className="mt-6 text-[#00A3A3]">6. Cookies</h3>
+    <p>
     Our website uses cookies to remember your preferences, keep you logged
     in and analyse traffic. You can manage your preferences via the cookie
     banner or your browser settings.
     </p>
 
-    <h3 className="text-emerald-600 font-semibold mt-4">7. Contact</h3>
-    <p className="text-sm text-slate-800 leading-relaxed mt-2">
-    For privacy-related queries, please email <strong>privacy@simrikyatayat.com</strong>.
+    <h3 className="mt-6 text-[#00A3A3]">7. Contact</h3>
+    <p>
+    For privacy-related queries, please email{" "}
+    <strong>privacy@simrikyatayat.com</strong>.
     </p>
 </div>
 );
 
-/* Book Consultation / Support Form */
+// Book Consultation / Support Form
 const BookConsultation = () => {
 const [localForm, setLocalForm] = useState({
     firstName: "",
@@ -423,16 +446,19 @@ const [localForm, setLocalForm] = useState({
     condition: "",
     additionalInfo: "",
 });
+
 const [submitted, setSubmitted] = useState(false);
 
 const handleLocalChange = (e) => {
     const { name, value } = e.target;
-    setLocalForm((prev) => ({ ...prev, [name]: value }));
+    setLocalForm((prev) => ({
+    ...prev,
+    [name]: value,
+    }));
 };
 
 const handleLocalSubmit = (e) => {
     e.preventDefault();
-    // you can replace console.log with actual API call
     console.log("Form submitted:", localForm);
     setIsSubmitted(true);
     setSubmitted(true);
@@ -440,15 +466,24 @@ const handleLocalSubmit = (e) => {
 
 if (isSubmitted || submitted) {
     return (
-    <div className="form-container animate-on-scroll">
-        <div id="success-message" className="bg-white rounded-xl p-6 shadow-md">
-        <div className="text-3xl text-emerald-600 mb-3">✓</div>
-        <h3 className="text-lg font-semibold mb-2">Thank you for contacting Simrik Support!</h3>
-        <p className="text-sm text-slate-700 mb-3">
-            We have received your details. Our team will get back to you within 24 hours regarding your query or special assistance.
+    <div className="mt-5">
+        <div
+        id="success-message"
+        className="bg-white rounded-2xl p-6 shadow-md text-black"
+        >
+        <div className="text-green-600 text-3xl mb-2">
+            <i className="fas fa-check-circle"></i>
+        </div>
+        <h3 className="text-lg font-semibold mb-2">
+            Thank you for contacting Simrik Support!
+        </h3>
+        <p className="mb-2">
+            We have received your details. Our team will get back to you
+            within 24 hours regarding your query or special assistance.
         </p>
-        <p className="text-sm text-slate-700">
-            For urgent matters, please call us at <strong>+977-XXX-XXX-XXXX</strong>.
+        <p>
+            For urgent matters, please call us at{" "}
+            <strong>+977-XXX-XXX-XXXX</strong>.
         </p>
         </div>
     </div>
@@ -456,127 +491,155 @@ if (isSubmitted || submitted) {
 }
 
 return (
-    <div className="form-container animate-on-scroll">
-    <div className="content-section mb-4">
-        <h2 className="text-emerald-600 text-xl font-semibold mb-2">Support / Special Assistance Request</h2>
-        <p className="text-sm text-slate-800">
-        Need help with booking, refunds, group travel, or special seating needs? Fill out this form and our team will contact you.
+    <div className="mt-5 text-black">
+    <div className="animate-on-scroll mb-4">
+        <h2 className="text-[#00A3A3] mb-2">
+        Support / Special Assistance Request
+        </h2>
+        <p className="text-sm sm:text-[15px] leading-[1.65]">
+        Need help with booking, refunds, group travel, or special seating
+        needs? Fill out this form and our team will contact you.
         </p>
     </div>
 
-    <form onSubmit={handleLocalSubmit} className="support-form bg-white p-6 rounded-lg shadow-sm">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-            <label htmlFor="first-name" className="block text-sm font-semibold text-slate-700 mb-1">
-            First Name <span className="text-rose-500">*</span>
+    <form
+        onSubmit={handleLocalSubmit}
+        className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm"
+    >
+        <div className="flex flex-col  gap-4">
+        <div className="flex-1 mb-4">
+            <label
+            htmlFor="first-name"
+            className="block text-black font-semibold mb-1 text-left"
+            >
+            First Name <span className="text-red-500">*</span>
             </label>
             <input
+            type="text"
             id="first-name"
             name="firstName"
             value={localForm.firstName}
             onChange={handleLocalChange}
             required
-            className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-2 focus:outline-emerald-500"
+            className="w-full mt-1 px-3 py-2 rounded-xl border border-[#cfd4dc] bg-white text-black placeholder:text-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#00A3A3]"
             />
         </div>
 
-        <div>
-            <label htmlFor="last-name" className="block text-sm font-semibold text-slate-700 mb-1">
-            Last Name <span className="text-rose-500">*</span>
+        <div className="flex-1 mb-4">
+            <label
+            htmlFor="last-name"
+            className="block text-black font-semibold mb-1 text-left"
+            >
+            Last Name <span className="text-red-500">*</span>
             </label>
             <input
+            type="text"
             id="last-name"
             name="lastName"
             value={localForm.lastName}
             onChange={handleLocalChange}
             required
-            className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-2 focus:outline-emerald-500"
+            className="w-full mt-1 px-3 py-2 rounded-xl border border-[#cfd4dc] bg-white text-black placeholder:text-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#00A3A3]"
             />
         </div>
+        </div>
 
-        <div>
-            <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-1">
-            Email Address <span className="text-rose-500">*</span>
+        <div className="flex flex-col  gap-4">
+        <div className="flex-1 mb-4">
+            <label
+            htmlFor="email"
+            className="block text-black font-semibold mb-1 text-left"
+            >
+            Email Address <span className="text-red-500">*</span>
             </label>
             <input
+            type="email"
             id="email"
             name="email"
-            type="email"
             value={localForm.email}
             onChange={handleLocalChange}
             required
-            className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-2 focus:outline-emerald-500"
+            className="w-full mt-1 px-3 py-2 rounded-xl border border-[#cfd4dc] bg-white text-black placeholder:text-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#00A3A3]"
             />
         </div>
 
-        <div>
-            <label htmlFor="phone" className="block text-sm font-semibold text-slate-700 mb-1">
-            Phone Number <span className="text-rose-500">*</span>
+        <div className="flex-1 mb-4">
+            <label
+            htmlFor="phone"
+            className="block text-black font-semibold mb-1 text-left"
+            >
+            Phone Number <span className="text-red-500">*</span>
             </label>
             <input
+            type="tel"
             id="phone"
             name="phone"
-            type="tel"
             value={localForm.phone}
             onChange={handleLocalChange}
             required
-            className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-2 focus:outline-emerald-500"
+            className="w-full mt-1 px-3 py-2 rounded-xl border border-[#cfd4dc] bg-white text-black placeholder:text-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#00A3A3]"
             />
         </div>
         </div>
 
-        <div className="mt-4">
-        <label htmlFor="condition" className="block text-sm font-semibold text-slate-700 mb-1">
-            Your Request / Question <span className="text-rose-500">*</span>
+        <div className="mb-4">
+        <label
+            htmlFor="condition"
+            className="block text-black font-semibold mb-1 text-left"
+        >
+            Your Request / Question <span className="text-red-500">*</span>
         </label>
         <textarea
             id="condition"
             name="condition"
-            rows={4}
             value={localForm.condition}
             onChange={handleLocalChange}
             placeholder="Tell us about your issue, group booking, refund request or special assistance needed..."
+            rows={4}
             required
-            className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-2 focus:outline-emerald-500"
+            className="w-full mt-1 px-3 py-2 rounded-xl border border-[#cfd4dc] bg-white text-black placeholder:text-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#00A3A3]"
         />
         </div>
 
-        <div className="mt-4">
-        <label htmlFor="additional-info" className="block text-sm font-semibold text-slate-700 mb-1">
+        <div className="mb-4">
+        <label
+            htmlFor="additional-info"
+            className="block text-black font-semibold mb-1 text-left"
+        >
             Additional Information
         </label>
         <textarea
             id="additional-info"
             name="additionalInfo"
-            rows={3}
             value={localForm.additionalInfo}
             onChange={handleLocalChange}
             placeholder="Any extra details (preferred travel date, route, number of passengers, etc.)"
-            className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-2 focus:outline-emerald-500"
+            rows={3}
+            className="w-full mt-1 px-3 py-2 rounded-xl border border-[#cfd4dc] bg-white text-black placeholder:text-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#00A3A3]"
         />
         </div>
 
         <button
         type="submit"
-        className="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-semibold"
+        className="mt-4 sm:mt-5 w-full py-3 rounded-xl bg-[#00A3A3] text-white text-[15px] sm:text-[16px] font-semibold cursor-pointer hover:bg-[#008080] transition-colors"
         >
         Submit Request
         </button>
 
-        <p className="text-xs text-slate-600 mt-3">
+        <p className="mt-3 text-xs sm:text-[13px] text-[#4b5563]">
         By submitting this form, you agree to our{" "}
         <button
             type="button"
+            className="text-[#00A3A3] underline cursor-pointer bg-transparent border-0 p-0"
             onClick={() => setActiveTab("terms")}
-            className="text-emerald-600 underline"
         >
             Terms &amp; Conditions
         </button>{" "}
         and{" "}
         <button
             type="button"
+            className="text-[#00A3A3] underline cursor-pointer bg-transparent border-0 p-0"
             onClick={() => setActiveTab("privacy")}
-            className="text-emerald-600 underline"
         >
             Privacy Policy
         </button>
@@ -588,7 +651,7 @@ return (
 };
 
 
-/* render tab content */
+// Tab Content Renderer
 const renderTabContent = () => {
 switch (activeTab) {
     case "terms":
@@ -602,55 +665,66 @@ switch (activeTab) {
 }
 };
 
-/* MAIN RETURN */
+// MAIN RETURN
 return (
-<div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
-    <div className="max-w-7xl mx-auto px-6">
+<div className=" min-h-screen bg-[#495969] text-white font-sans">
+    <div className="w-full px-3 sm:px-6 lg:px-10 py-1">
+
     <PageTitle />
 
-    {/* Tabs container */}
-    <div className="tab-container max-w-5xl mx-auto mt-8 mb-12 rounded-lg shadow-lg overflow-hidden">
-        <div className="tab-buttons flex bg-slate-100 rounded-t-lg">
-        <div
+    <div className="ml-10 mr-10 mt-6 sm:mt-10 mb-10 sm:mb-16 rounded-2xl bg-[#f7f9fc] 
+shadow-[0_18px_40px_rgba(15,23,42,0.12)] overflow-hidden ">
+
+        {/* TAB BUTTONS */}
+        <div className="flex flex-col sm:flex-row bg-[#f1f2f5] rounded-t-2xl">
+        {/* Terms Button */}
+        <button
+            type="button"
             onClick={() => setActiveTab("terms")}
-            className={`tab-button flex-1 text-center py-4 px-6 text-sm font-semibold cursor-pointer transition ${
+            className={`flex-1 text-center py-3 sm:py-4 px-4 sm:px-7 text-[14px] sm:text-[16px] font-semibold tracking-[0.02em] cursor-pointer border-b-[3px] transition ${
             activeTab === "terms"
-                ? "bg-white text-slate-900 border-b-4 border-[#1d8cf8]"
-                : "text-slate-600 hover:bg-slate-50"
+                ? "bg-white text-[#111827] border-b-[#1d8cf8]"
+                : "bg-[#f1f2f5] text-[#4b5563] border-b-transparent hover:bg-[#e6e9f2]"
             }`}
         >
             Terms &amp; Conditions
-        </div>
+        </button>
 
-        <div
+        {/* Privacy Button */}
+        <button
+            type="button"
             onClick={() => setActiveTab("privacy")}
-            className={`tab-button flex-1 text-center py-4 px-6 text-sm font-semibold cursor-pointer transition ${
+            className={`flex-1 text-center py-3 sm:py-4 px-4 sm:px-7 text-[14px] sm:text-[16px] font-semibold tracking-[0.02em] cursor-pointer border-b-[3px] transition ${
             activeTab === "privacy"
-                ? "bg-white text-slate-900 border-b-4 border-[#1d8cf8]"
-                : "text-slate-600 hover:bg-slate-50"
+                ? "bg-white text-[#111827] border-b-[#1d8cf8]"
+                : "bg-[#f1f2f5] text-[#4b5563] border-b-transparent hover:bg-[#e6e9f2]"
             }`}
         >
             Privacy Policy
-        </div>
+        </button>
 
-        <div
+        {/* Support Button */}
+        <button
+            type="button"
             onClick={() => setActiveTab("consultation")}
-            className={`tab-button flex-1 text-center py-4 px-6 text-sm font-semibold cursor-pointer transition ${
+            className={`flex-1 text-center py-3 sm:py-4 px-4 sm:px-7 text-[14px] sm:text-[16px] font-semibold tracking-[0.02em] cursor-pointer border-b-[3px] transition ${
             activeTab === "consultation"
-                ? "bg-white text-slate-900 border-b-4 border-[#1d8cf8]"
-                : "text-slate-600 hover:bg-slate-50"
+                ? "bg-white text-[#111827] border-b-[#1d8cf8]"
+                : "bg-[#f1f2f5] text-[#4b5563] border-b-transparent hover:bg-[#e6e9f2]"
             }`}
         >
             Support / Contact
-        </div>
+        </button>
         </div>
 
-        <div className="tab-content bg-white p-8">
-        <div className="max-w-4xl mx-auto">{renderTabContent()}</div>
+        {/* TAB CONTENT */}
+        <div className="px-4 sm:px-8 lg:px-10 py-6 sm:py-8 bg-white rounded-b-2xl">
+        {renderTabContent()}
         </div>
     </div>
     </div>
 
+    <Footer />
 </div>
 );
 }

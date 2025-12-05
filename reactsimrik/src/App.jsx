@@ -7,6 +7,10 @@ import BookingForWomen from "./components/BookingForWomen";
 import Home from "./Home";
 import SearchBus from "./components/SearchBus";
 import RentalDetails from "./components/RentalDetails";
+import Bus from "./components/Bus";
+import Jeep from "./components/Jeep";
+import Hiace from "./components/Hiace";
+
 import Terms from "./components/Terms";
 
 // This component decides when to show navbar
@@ -16,7 +20,12 @@ function Layout({ children }) {
   // All the pages where you DON'T want navbar
   const hideNavbarOn = [
     "/search-details",
-    "/rental-details"   // 👈 Add this line to hide navbar on rental page
+    "/rental-details",
+    "/terms-details",
+    "/bus",
+    "/jeep",
+    "/hiace",
+    "/ev", // 👈 Add this line to hide navbar on rental page
   ];
 
   // Check if current page is in the list
@@ -49,6 +58,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/search-details" element={<SearchBus />} />
           <Route path="/rental-details" element={<RentalDetails />} />
+          <Route path="/bus" element={<Bus />} />
+          <Route path="/jeep" element={<Jeep/>} />
+          <Route path="/hiace" element={<Hiace />} />
           <Route path="/terms-details" element={<Terms />} />
         </Routes>
       </Layout>

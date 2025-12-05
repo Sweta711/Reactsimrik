@@ -7,6 +7,7 @@ import spinGif from "../assets/spin.jpg";
 import freecan from "../assets/free.jpg";
 import jeepfive from "../assets/jeep.jpg";
 import off from "../assets/save.png";
+import Footer from "./Footer";
 
 export default function OfferSection() {
 const [activeTab, setActiveTab] = useState("All");
@@ -74,20 +75,20 @@ return (
 
     {/* Tabs */}
     <div className="flex gap-4 mb-6">
-    {tabs.map((tab) => (
-        <button
-        key={tab}
-        onClick={() => setActiveTab(tab)}
-        className={`px-5 py-2 rounded-full border text-sm font-medium transition
-            ${
-            activeTab === tab
-                ? "bg-[#1b5d67f5] text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
-        >
-        {tab}
-        </button>
-    ))}
+        {tabs.map((tab) => (
+            <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`px-5 py-2 rounded-full border text-sm font-medium transition
+                ${
+                activeTab === tab
+                    ? "bg-[#1b5d67f5] text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+            >
+            {tab}
+            </button>
+        ))}
     </div>
 
     {/* Cards */}
@@ -135,6 +136,7 @@ return (
         </motion.div>
     ))}
     </div>
+    
 </div>
 );
 }

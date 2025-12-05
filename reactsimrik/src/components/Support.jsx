@@ -11,11 +11,11 @@ export default function Services() {
   const navigate = useNavigate();
 
   return (
-    <section className="px-4 md:px-10 py-[50px] bg-white">
+    <section className="fade-up px-4 md:px-10 py-[50px] bg-white">
 
       {/* Title */}
       <div className="mb-[35px] mt-[5px] text-center">
-        <h2 className="fade-up text-[28px] md:text-[34px] font-bold text-black">
+        <h2 className="text-[28px] md:text-[34px] font-bold text-black">
           Supporting You Through Your Journey
         </h2>
       </div>
