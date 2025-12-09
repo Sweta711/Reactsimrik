@@ -1,77 +1,61 @@
-// src/components/bus/HiaceBooking.jsx
 import React, { useState } from "react";
 import hiaceImg from "../../assets/hiace.png";
 
-// HIACE interiors
+// HIACE interiors (use your existing images / paths)
 import hiaceSeat1 from "../../assets/HiaceSeat.jpg";
 import hiaceSeat2 from "../../assets/HiaceSeat2.webp";
 import hiaceSeat3 from "../../assets/HSeat.jpeg";
 
-/*  HIACE VEHICLES  */
-const hiaces = [
+/*  EV HIACE VEHICLES  */
+const evHiaces = [
   {
-    id: "hiace-morning",
+    id: "hiace-ev-morning",
     type: "hiace",
+    timeOfDay: "day",
     image: hiaceImg,
-    name: "Simrik Hiace Morning",
-    departure: "5:30 AM",
-    arrival: "1:00 PM",
-    price: 1000,
-    timeOfDay: "day", // NEW
-    features: ["A/C", "Wi-Fi"],
-    amenities: ["Water Bottle", "Reclining Seats"],
-    gallery: [hiaceSeat1, hiaceSeat2, hiaceSeat3],
-    boardingPoints: ["Balaju (05:00 AM)", "Sorhakhutte (05:10 AM)"],
-    droppingPoints: ["Kakarvitta (01:00 PM)"],
-  },
-  {
-    id: "hiace-ev",
-    type: "hiace",
-    image: hiaceImg,
-    name: "Simrik Hiace Electric (EV)",
-    departure: "8:00 AM",
-    arrival: "3:00 PM",
+    name: "Simrik Hiace Electric (Morning EV)",
+    departure: "6:30 AM",
+    arrival: "1:30 PM",
     price: 1200,
-    timeOfDay: "day", // NEW
-    features: ["Electric EV", "Silent Cabin", "A/C", "Wi-Fi", "USB Charging Ports"],
+    features: ["Electric EV", "A/C", "Wi-Fi", "USB Charging Ports"],
     amenities: ["Water Bottle", "Comfort Reclining Seats", "Eco-Friendly Ride"],
     gallery: [hiaceSeat1, hiaceSeat2],
-    boardingPoints: ["Balaju (07:40 AM)", "Sorhakhutte (07:50 AM)"],
-    droppingPoints: ["Kakarvitta (03:00 PM)"],
+    boardingPoints: ["Balaju (06:00 AM)", "Sorhakhutte (06:10 AM)"],
+    droppingPoints: ["Kakarvitta (01:30 PM)"],
   },
   {
-    id: "hiace-night",
+    id: "hiace-ev-night",
     type: "hiace",
+    timeOfDay: "night",
     image: hiaceImg,
-    name: "Simrik Hiace Night",
+    name: "Simrik Hiace Electric (Night EV)",
     departure: "8:30 PM",
     arrival: "5:00 AM",
-    price: 950,
-    timeOfDay: "night", // NEW
-    features: ["Non A/C", "Music System"],
-    amenities: ["Blanket", "Neck Pillow"],
+    price: 1250,
+    features: ["Electric EV", "A/C", "Wi-Fi", "USB Charging Ports"],
+    amenities: ["Blanket", "Neck Pillow", "Eco-Friendly Ride"],
     gallery: [hiaceSeat3, hiaceSeat2, hiaceSeat1],
     boardingPoints: ["Koteshwor (08:00 PM)", "Gwarko (08:15 PM)"],
     droppingPoints: ["Kakarvitta (05:00 AM)"],
   },
 ];
 
-const HiaceBooking = () => {
-  const [expandedHiaceId, setExpandedHiaceId] = useState(hiaces[0].id);
+const EvHiace = () => {
+  const [expandedVehicleId, setExpandedVehicleId] = useState(evHiaces[0].id);
   const [expandedTab, setExpandedTab] = useState("amenities");
   const [expandedImage, setExpandedImage] = useState(null);
 
-  // filters (time of day + price + features)
-  const [timeFilter, setTimeFilter] = useState("both"); // NEW: both / day / night
+  // filters
   const [priceFilter, setPriceFilter] = useState("any"); // any / under1000 / 1000-1500 / above1500
   const [featureFilters, setFeatureFilters] = useState({
     ac: false,
     wifi: false,
     electric: false,
   });
+  const [timeFilter, setTimeFilter] = useState("both"); // both / day / night
 
   // BOOKING MODAL STATE
-  const [bookingHiace, setBookingHiace] = useState(null);
+  const [bookingVehicle, setBookingVehicle] = useState(null);
   const [showBooking, setShowBooking] = useState(false);
   const [form, setForm] = useState({
     fullName: "",
@@ -94,14 +78,14 @@ const HiaceBooking = () => {
       specialRequests: "",
     });
 
-  const openBooking = (hiace) => {
-    setBookingHiace(hiace);
+  const openBooking = (vehicle) => {
+    setBookingVehicle(vehicle);
     setShowBooking(true);
   };
 
   const closeBooking = () => {
     setShowBooking(false);
-    setBookingHiace(null);
+    setBookingVehicle(null);
     clearForm();
   };
 
@@ -112,14 +96,14 @@ const HiaceBooking = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!bookingHiace) return;
+    if (!bookingVehicle) return;
 
     const daysNumber = Number(form.days) > 0 ? Number(form.days) : 1;
-    const total = bookingHiace.price * daysNumber;
+    const total = bookingVehicle.price * daysNumber;
 
     alert(
       `Booking confirmed!\n\n` +
-        `Vehicle: ${bookingHiace.name}\n` +
+        `Vehicle: ${bookingVehicle.name}\n` +
         `Name: ${form.fullName}\n` +
         `Email: ${form.email}\n` +
         `Phone: ${form.phone}\n` +
@@ -138,22 +122,22 @@ const HiaceBooking = () => {
   };
 
   const clearAllFilters = () => {
-    setTimeFilter("both"); // reset NEW filter
     setPriceFilter("any");
     setFeatureFilters({ ac: false, wifi: false, electric: false });
+    setTimeFilter("both");
   };
 
-  const filteredHiaces = hiaces.filter((v) => {
-    // time of day filter
+  const filteredEvHiaces = evHiaces.filter((v) => {
+    // time of day
     if (timeFilter !== "both" && v.timeOfDay !== timeFilter) return false;
 
-    // price filter
+    // price
     if (priceFilter === "under1000" && v.price >= 1000) return false;
     if (priceFilter === "1000-1500" && (v.price < 1000 || v.price > 1500))
       return false;
     if (priceFilter === "above1500" && v.price <= 1500) return false;
 
-    // feature filters
+    // features
     if (featureFilters.ac && !v.features.some((f) => f.includes("A/C")))
       return false;
     if (
@@ -176,7 +160,7 @@ const HiaceBooking = () => {
         {/* TITLE */}
         <div className="max-w-5xl mx-auto mb-5">
           <h1 className="text-center text-xl sm:text-2xl font-semibold text-[#0f172a]">
-            Hiace Booking
+            EV Hiace Booking
           </h1>
         </div>
 
@@ -196,7 +180,7 @@ const HiaceBooking = () => {
               </button>
             </div>
 
-            {/* TIME OF DAY – NEW */}
+            {/* TIME OF DAY */}
             <div className="border-t border-[#e5e7eb] pt-3 mt-2">
               <p className="text-[11px] uppercase tracking-[0.16em] text-[#6b7280] mb-1">
                 Time of Day
@@ -338,10 +322,10 @@ const HiaceBooking = () => {
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                 <div>
                   <h2 className="m-0 text-[18px] sm:text-[20px] font-bold text-[#0f172a]">
-                    Available Hiace
+                    Available EV Hiace
                   </h2>
                   <p className="mt-1 mb-0 text-[12px] sm:text-[13px] text-[#6b7280]">
-                    Choose a hiace and then book your seats.
+                    Choose an EV hiace and then book your seats.
                   </p>
                 </div>
                 <span
@@ -350,14 +334,14 @@ const HiaceBooking = () => {
                              bg-[#ecfdf5] text-[#047857] self-start sm:self-auto"
                 >
                   <span className="w-2 h-2 rounded-full bg-[#22c55e]" />
-                  {filteredHiaces.length} hiace found
+                  {filteredEvHiaces.length} vehicles found
                 </span>
               </div>
 
               <div className="flex flex-col gap-3 mt-1">
-                {filteredHiaces.map((hiace) => (
+                {filteredEvHiaces.map((vehicle) => (
                   <article
-                    key={hiace.id}
+                    key={vehicle.id}
                     className="rounded-[18px] border border-[#e5e7eb]
                                pt-3.5 pb-3 px-3 sm:px-4
                                transition-all duration-200
@@ -375,15 +359,15 @@ const HiaceBooking = () => {
                                      shadow-[0_8px_22px_rgba(15,23,42,0.18)]"
                         >
                           <img
-                            src={hiace.image}
-                            alt={hiace.name}
+                            src={vehicle.image}
+                            alt={vehicle.name}
                             className="w-full h-full object-cover"
                           />
                         </div>
 
                         <div className="flex flex-col gap-1.5">
                           <h3 className="m-0 text-[15px] sm:text-[17px] font-bold text-[#0f172a] tracking-[0.4px]">
-                            {hiace.name}
+                            {vehicle.name}
                           </h3>
                           <p
                             className="m-0 text-[12px] sm:text-[13px] text-[#475569]
@@ -394,19 +378,19 @@ const HiaceBooking = () => {
                               Departure
                             </span>
                             <span className="font-semibold text-[#0f172a] tracking-[0.4px]">
-                              {hiace.departure}
+                              {vehicle.departure}
                             </span>
                             <span className="mx-1 text-[#9ca3af]">•</span>
                             <span className="font-semibold text-[#334155] tracking-[0.3px]">
                               Arrival
                             </span>
                             <span className="font-semibold text-[#0f172a] tracking-[0.4px]">
-                              {hiace.arrival}
+                              {vehicle.arrival}
                             </span>
                           </p>
 
                           <div className="flex flex-wrap gap-1.5 mt-1">
-                            {hiace.features.map((f) => (
+                            {vehicle.features.map((f) => (
                               <span
                                 key={f}
                                 className="text-[11px] px-[9px] py-1 rounded-full
@@ -425,7 +409,7 @@ const HiaceBooking = () => {
                       <div className="flex flex-row md:flex-col items-end justify-between gap-2 min-w-[120px]">
                         <div className="text-right">
                           <div className="text-[16px] sm:text-[18px] font-bold text-[#047857] tracking-[0.4px]">
-                            Rs. {hiace.price}
+                            Rs. {vehicle.price}
                           </div>
                           <div className="text-[11px] text-[#64748b] tracking-[0.3px]">
                             per person
@@ -441,7 +425,7 @@ const HiaceBooking = () => {
                                      hover:bg-[#009f8a]
                                      hover:-translate-y-px
                                      hover:shadow-[0_14px_30px_rgba(0,191,165,0.45)]"
-                          onClick={() => openBooking(hiace)}
+                          onClick={() => openBooking(vehicle)}
                         >
                           Book Now
                         </button>
@@ -459,7 +443,8 @@ const HiaceBooking = () => {
                         { key: "gallery", label: "Gallery" },
                       ].map((tab) => {
                         const active =
-                          expandedHiaceId === hiace.id && expandedTab === tab.key;
+                          expandedVehicleId === vehicle.id &&
+                          expandedTab === tab.key;
                         return (
                           <button
                             key={tab.key}
@@ -472,7 +457,7 @@ const HiaceBooking = () => {
                                             : "border-b-transparent text-[#6b7280]"
                                         }`}
                             onClick={() => {
-                              setExpandedHiaceId(hiace.id);
+                              setExpandedVehicleId(vehicle.id);
                               setExpandedTab(tab.key);
                             }}
                           >
@@ -483,7 +468,7 @@ const HiaceBooking = () => {
                     </div>
 
                     {/* TAB CONTENT */}
-                    {expandedHiaceId === hiace.id && (
+                    {expandedVehicleId === vehicle.id && (
                       <div
                         key={expandedTab}
                         className="mt-2 bg-[#f9fafb] rounded-xl
@@ -491,9 +476,9 @@ const HiaceBooking = () => {
                                    tracking-[0.3px]"
                       >
                         {expandedTab === "amenities" &&
-                          (hiace.amenities && hiace.amenities.length ? (
+                          (vehicle.amenities && vehicle.amenities.length ? (
                             <ul className="m-0 pl-[18px] tracking-[0.25px] list-disc text-left">
-                              {hiace.amenities.map((item) => (
+                              {vehicle.amenities.map((item) => (
                                 <li key={item} className="mb-1 text-[#475569]">
                                   {item}
                                 </li>
@@ -512,7 +497,7 @@ const HiaceBooking = () => {
                                 Boarding Point
                               </h4>
                               <ul className="m-0 pl-[18px] tracking-[0.25px] list-disc">
-                                {hiace.boardingPoints.map((bp) => (
+                                {vehicle.boardingPoints.map((bp) => (
                                   <li key={bp} className="mb-1 text-[#475569]">
                                     {bp}
                                   </li>
@@ -524,7 +509,7 @@ const HiaceBooking = () => {
                                 Dropping Point
                               </h4>
                               <ul className="m-0 pl-[18px] tracking-[0.25px] list-disc">
-                                {hiace.droppingPoints.map((dp) => (
+                                {vehicle.droppingPoints.map((dp) => (
                                   <li key={dp} className="mb-1 text-[#475569]">
                                     {dp}
                                   </li>
@@ -535,10 +520,10 @@ const HiaceBooking = () => {
                         )}
 
                         {expandedTab === "gallery" &&
-                          (hiace.gallery && hiace.gallery.length ? (
+                          (vehicle.gallery && vehicle.gallery.length ? (
                             <>
                               {expandedImage &&
-                                expandedImage.vehicleId === hiace.id && (
+                                expandedImage.vehicleId === vehicle.id && (
                                   <div
                                     className="w-full mb-2 p-2 rounded-2xl
                                                bg-white
@@ -553,20 +538,20 @@ const HiaceBooking = () => {
                                 )}
 
                               <div className="flex flex-wrap gap-3">
-                                {hiace.gallery.map((img, index) => (
+                                {vehicle.gallery.map((img, index) => (
                                   <img
                                     key={index}
                                     src={img}
-                                    alt={`${hiace.name} interior ${index + 1}`}
+                                    alt={`${vehicle.name} interior ${index + 1}`}
                                     className="w-[110px] h-[80px] sm:w-[120px] sm:h-[90px] object-cover rounded-xl
                                                shadow-[0_6px_14px_rgba(15,23,42,0.15)]
                                                cursor-pointer transition-transform duration-200
                                                hover:scale-[1.06]"
                                     onClick={() =>
                                       setExpandedImage({
-                                        vehicleId: hiace.id,
+                                        vehicleId: vehicle.id,
                                         src: img,
-                                        alt: `${hiace.name} interior ${
+                                        alt: `${vehicle.name} interior ${
                                           index + 1
                                         }`,
                                       })
@@ -585,9 +570,10 @@ const HiaceBooking = () => {
                   </article>
                 ))}
 
-                {!filteredHiaces.length && (
+                {!filteredEvHiaces.length && (
                   <div className="text-center text-sm text-[#6b7280] py-10">
-                    No hiace match your filters. Try changing your options.
+                    No EV hiace vehicles match your filters. Try changing your
+                    options.
                   </div>
                 )}
               </div>
@@ -597,7 +583,7 @@ const HiaceBooking = () => {
       </div>
 
       {/* BOOKING MODAL */}
-      {showBooking && bookingHiace && (
+      {showBooking && bookingVehicle && (
         <div className="fixed inset-0 z-40 flex items-center justify-center bg-[rgba(15,23,42,0.55)] px-3">
           <div className="w-full max-w-3xl bg-white rounded-3xl shadow-[0_24px_70px_rgba(15,23,42,0.4)] p-5 sm:p-7 relative">
             <button
@@ -609,7 +595,7 @@ const HiaceBooking = () => {
             </button>
 
             <h2 className="text-xl sm:text-2xl font-semibold text-[#0f172a] mb-1">
-              Book {bookingHiace.name}
+              Book {bookingVehicle.name}
             </h2>
             <p className="text-[13px] text-[#6b7280] mb-4">
               Fill in the details to book your vehicle.
@@ -714,10 +700,10 @@ const HiaceBooking = () => {
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-2 text-sm">
                 <div className="text-[#374151]">
                   <div>
-                    Vehicle: <strong>{bookingHiace.name}</strong>
+                    Vehicle: <strong>{bookingVehicle.name}</strong>
                   </div>
                   <div>
-                    Price per person: <strong>Rs. {bookingHiace.price}</strong>
+                    Price per person: <strong>Rs. {bookingVehicle.price}</strong>
                   </div>
                 </div>
                 <button
@@ -742,4 +728,4 @@ const HiaceBooking = () => {
   );
 };
 
-export default HiaceBooking;
+export default EvHiace;

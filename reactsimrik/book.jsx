@@ -22,6 +22,7 @@ const vehicles = [
   {
     id: "deluxe",
     type: "bus",
+    timeOfDay: "day",
     image: simrikBus,
     name: "Simrik Deluxe A/C (Bus)",
     departure: "7:00 AM",
@@ -36,6 +37,7 @@ const vehicles = [
   {
     id: "express",
     type: "bus",
+    timeOfDay: "day",
     image: simrikBus,
     name: "Simrik Express (Bus)",
     departure: "9:30 AM",
@@ -50,6 +52,7 @@ const vehicles = [
   {
     id: "night",
     type: "bus",
+    timeOfDay: "night",
     image: simrikBus,
     name: "Simrik Night Rider (Bus)",
     departure: "10:00 PM",
@@ -64,6 +67,7 @@ const vehicles = [
   {
     id: "electric-ev",
     type: "bus",
+    timeOfDay: "day",
     image: simrikBus,
     name: "Simrik Electric Yutong (EV Bus)",
     departure: "6:30 AM",
@@ -79,6 +83,7 @@ const vehicles = [
   {
     id: "jeep-sharing",
     type: "jeep",
+    timeOfDay: "day",
     image: jeepImg,
     name: "Simrik Shared Jeep",
     departure: "6:00 AM",
@@ -93,6 +98,7 @@ const vehicles = [
   {
     id: "jeep-private",
     type: "jeep",
+    timeOfDay: "day",
     image: jeepImg,
     name: "Simrik Private Jeep",
     departure: "8:00 AM",
@@ -108,6 +114,7 @@ const vehicles = [
   {
     id: "hiace-morning",
     type: "hiace",
+    timeOfDay: "day",
     image: hiaceImg,
     name: "Simrik Hiace Morning",
     departure: "5:30 AM",
@@ -122,6 +129,7 @@ const vehicles = [
   {
     id: "hiace-ev",
     type: "hiace",
+    timeOfDay: "day",
     image: hiaceImg,
     name: "Simrik Hiace Electric (EV)",
     departure: "8:00 AM",
@@ -136,6 +144,7 @@ const vehicles = [
   {
     id: "hiace-night",
     type: "hiace",
+    timeOfDay: "night",
     image: hiaceImg,
     name: "Simrik Hiace Night",
     departure: "8:30 PM",
@@ -222,6 +231,7 @@ const BusBookingApp = () => {
     wifi: false,
     electric: false,
   });
+  const [timeFilter, setTimeFilter] = useState("both"); // both / day / night
 
   const seatPrice = selectedBus ? selectedBus.price : 0;
   const totalPrice = selectedSeats.length * seatPrice;
@@ -234,11 +244,17 @@ const BusBookingApp = () => {
     setVehicleTypeFilter("all");
     setPriceFilter("any");
     setFeatureFilters({ ac: false, wifi: false, electric: false });
+    setTimeFilter("both");
   };
 
   const filteredVehicles = vehicles.filter((v) => {
     // vehicle type
     if (vehicleTypeFilter !== "all" && v.type !== vehicleTypeFilter) {
+      return false;
+    }
+
+    // time of day
+    if (timeFilter !== "both" && v.timeOfDay !== timeFilter) {
       return false;
     }
 
@@ -307,11 +323,9 @@ const BusBookingApp = () => {
         </div>
 
         {/* MAIN LAYOUT: filters + results */}
-      
-<div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start gap-4 md:gap-6">
-  {/* FILTERS */}
-  <aside className="w-full lg:w-64 xl:w-72 self-start bg-white rounded-3xl shadow-[0_18px_40px_rgba(15,23,42,0.12)] p-4 sm:p-5 mb-4 lg:mb-0">
-
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start gap-4 md:gap-6">
+          {/* FILTERS */}
+          <aside className="w-full lg:w-64 xl:w-72 self-start bg-white rounded-3xl shadow-[0_18px_40px_rgba(15,23,42,0.12)] p-4 sm:p-5 mb-4 lg:mb-0">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-semibold text-[#111827] m-0">
                 Filters
@@ -345,6 +359,48 @@ const BusBookingApp = () => {
                     </span>
                   </label>
                 ))}
+              </div>
+            </div>
+
+            {/* Time of day */}
+            <div className="border-t border-[#e5e7eb] pt-3 mt-3">
+              <p className="text-[11px] uppercase tracking-[0.16em] text-[#6b7280] mb-1">
+                Time of Day
+              </p>
+              <div className="space-y-1 text-[13px] text-[#111827]">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="timeOfDay"
+                    className="accent-[#059669]"
+                    value="both"
+                    checked={timeFilter === "both"}
+                    onChange={() => setTimeFilter("both")}
+                  />
+                  <span>Both</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="timeOfDay"
+                    className="accent-[#059669]"
+                    value="day"
+                    checked={timeFilter === "day"}
+                    onChange={() => setTimeFilter("day")}
+                  />
+                  <span>Day</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="timeOfDay"
+                    className="accent-[#059669]"
+                    value="night"
+                    checked={timeFilter === "night"}
+                    onChange={() => setTimeFilter("night")}
+                  />
+                  <span>Night</span>
+                </label>
               </div>
             </div>
 

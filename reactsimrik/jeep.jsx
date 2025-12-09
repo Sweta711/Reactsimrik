@@ -10,6 +10,7 @@ const jeeps = [
   {
     id: "jeep-sharing",
     type: "jeep",
+    timeOfDay: "day", // NEW
     image: jeepImg,
     name: "Simrik Shared Jeep",
     departure: "6:00 AM",
@@ -24,6 +25,7 @@ const jeeps = [
   {
     id: "jeep-private",
     type: "jeep",
+    timeOfDay: "day", // NEW
     image: jeepImg,
     name: "Simrik Private Jeep",
     departure: "8:00 AM",
@@ -42,13 +44,14 @@ const Jeep = () => {
   const [expandedTab, setExpandedTab] = useState("amenities");
   const [expandedImage, setExpandedImage] = useState(null);
 
-  // filters (price + features only)
+  // filters
   const [priceFilter, setPriceFilter] = useState("any"); // any / under1000 / 1000-1500 / above1500
   const [featureFilters, setFeatureFilters] = useState({
     ac: false,
     wifi: false,
     electric: false,
   });
+  const [timeFilter, setTimeFilter] = useState("both"); // NEW: both / day / night
 
   // BOOKING MODAL STATE
   const [bookingJeep, setBookingJeep] = useState(null);
@@ -120,9 +123,13 @@ const Jeep = () => {
   const clearAllFilters = () => {
     setPriceFilter("any");
     setFeatureFilters({ ac: false, wifi: false, electric: false });
+    setTimeFilter("both"); // reset time filter too
   };
 
   const filteredJeeps = jeeps.filter((v) => {
+    // time of day filter
+    if (timeFilter !== "both" && v.timeOfDay !== timeFilter) return false;
+
     // price filter
     if (priceFilter === "under1000" && v.price >= 1000) return false;
     if (priceFilter === "1000-1500" && (v.price < 1000 || v.price > 1500))
@@ -172,8 +179,50 @@ const Jeep = () => {
               </button>
             </div>
 
-            {/* PRICE */}
+            {/* TIME OF DAY */}
             <div className="border-t border-[#e5e7eb] pt-3 mt-2">
+              <p className="text-[11px] uppercase tracking-[0.16em] text-[#6b7280] mb-1">
+                Time of Day
+              </p>
+              <div className="space-y-1 text-[13px] text-[#111827]">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="timeOfDay"
+                    className="accent-[#059669]"
+                    value="both"
+                    checked={timeFilter === "both"}
+                    onChange={() => setTimeFilter("both")}
+                  />
+                  <span>Both</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="timeOfDay"
+                    className="accent-[#059669]"
+                    value="day"
+                    checked={timeFilter === "day"}
+                    onChange={() => setTimeFilter("day")}
+                  />
+                  <span>Day</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="timeOfDay"
+                    className="accent-[#059669]"
+                    value="night"
+                    checked={timeFilter === "night"}
+                    onChange={() => setTimeFilter("night")}
+                  />
+                  <span>Night</span>
+                </label>
+              </div>
+            </div>
+
+            {/* PRICE */}
+            <div className="border-t border-[#e5e7eb] pt-3 mt-3">
               <p className="text-[11px] uppercase tracking-[0.16em] text-[#6b7280] mb-1">
                 Price (per person)
               </p>
