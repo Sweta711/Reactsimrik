@@ -1,17 +1,15 @@
-// src/components/bus/BusBookingApp.jsx
 import React, { useState } from "react";
 import simrikBus from "../assets/simrik.png";
 
-// BUS interiors
 import busSeatStandard from "../assets/seat.webp";
 import busSeatDeluxe from "../assets/busSeat.jpeg";
 import busSeatSleeper from "../assets/busSeat1.jpeg";
 
-/*  VEHICLES – ONLY BUSES  */
 const vehicles = [
 {
 id: "deluxe",
 type: "bus",
+timeOfDay: "day",
 image: simrikBus,
 name: "Simrik Deluxe A/C (Bus)",
 departure: "7:00 AM",
@@ -26,6 +24,7 @@ droppingPoints: ["Kakarvitta (03:00 PM)"],
 {
 id: "express",
 type: "bus",
+timeOfDay: "day",
 image: simrikBus,
 name: "Simrik Express (Bus)",
 departure: "9:30 AM",
@@ -40,6 +39,7 @@ droppingPoints: ["Kakarvitta (05:30 PM)"],
 {
 id: "night",
 type: "bus",
+timeOfDay: "night",
 image: simrikBus,
 name: "Simrik Night Rider (Bus)",
 departure: "10:00 PM",
@@ -54,6 +54,7 @@ droppingPoints: ["Kakarvitta (06:00 AM)"],
 {
 id: "electric-ev",
 type: "bus",
+timeOfDay: "day",
 image: simrikBus,
 name: "Simrik Electric Yutong (EV Bus)",
 departure: "6:30 AM",
@@ -72,13 +73,14 @@ const [expandedBusId, setExpandedBusId] = useState(vehicles[0].id);
 const [expandedTab, setExpandedTab] = useState("amenities");
 const [expandedImage, setExpandedImage] = useState(null);
 
-// filters (price + features only)
-const [priceFilter, setPriceFilter] = useState("any"); // any / under1000 / 1000-1500 / above1500
+// filters
+const [priceFilter, setPriceFilter] = useState("any"); 
 const [featureFilters, setFeatureFilters] = useState({
 ac: false,
 wifi: false,
 electric: false,
 });
+const [timeFilter, setTimeFilter] = useState("both"); 
 
 // BOOKING MODAL STATE
 const [bookingBus, setBookingBus] = useState(null);
@@ -150,9 +152,13 @@ setFeatureFilters((prev) => ({ ...prev, [key]: !prev[key] }));
 const clearAllFilters = () => {
 setPriceFilter("any");
 setFeatureFilters({ ac: false, wifi: false, electric: false });
+setTimeFilter("both");
 };
 
 const filteredVehicles = vehicles.filter((v) => {
+// time of day filter
+if (timeFilter !== "both" && v.timeOfDay !== timeFilter) return false;
+
 // price filter
 if (priceFilter === "under1000" && v.price >= 1000) return false;
 if (priceFilter === "1000-1500" && (v.price < 1000 || v.price > 1500))
@@ -178,7 +184,7 @@ return (
     <div className="max-w-full min-h-screen bg-[rgba(255,255,255,0.4)] backdrop-blur-sm px-3 py-6 sm:px-4 md:px-8 lg:px-12">
     {/* TITLE */}
     <div className="max-w-5xl mx-auto mb-5">
-        <h1 className="text-center text-l sm:text-3xl  font-bold text-[#0f172a]">
+        <h1 className="text-center text-xl sm:text-2xl font-semibold text-[#0f172a]">
         Bus Tickets
         </h1>
     </div>
@@ -199,8 +205,50 @@ return (
             </button>
         </div>
 
-        {/* PRICE */}
+        {/* TIME OF DAY */}
         <div className="border-t border-[#e5e7eb] pt-3 mt-2">
+            <p className="text-[11px] uppercase tracking-[0.16em] text-[#6b7280] mb-1">
+            Time of Day
+            </p>
+            <div className="space-y-1 text-[13px] text-[#111827]">
+            <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                type="radio"
+                name="timeOfDay"
+                className="accent-[#059669]"
+                value="both"
+                checked={timeFilter === "both"}
+                onChange={() => setTimeFilter("both")}
+                />
+                <span>Both</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                type="radio"
+                name="timeOfDay"
+                className="accent-[#059669]"
+                value="day"
+                checked={timeFilter === "day"}
+                onChange={() => setTimeFilter("day")}
+                />
+                <span>Day</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                type="radio"
+                name="timeOfDay"
+                className="accent-[#059669]"
+                value="night"
+                checked={timeFilter === "night"}
+                onChange={() => setTimeFilter("night")}
+                />
+                <span>Night</span>
+            </label>
+            </div>
+        </div>
+
+        {/* PRICE */}
+        <div className="border-t border-[#e5e7eb] pt-3 mt-3">
             <p className="text-[11px] uppercase tracking-[0.16em] text-[#6b7280] mb-1">
             Price (per person)
             </p>

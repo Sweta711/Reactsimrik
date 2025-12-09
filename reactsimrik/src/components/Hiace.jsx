@@ -1,3 +1,4 @@
+// src/components/bus/HiaceBooking.jsx
 import React, { useState } from "react";
 import hiaceImg from "../assets/hiace.png";
 
@@ -16,6 +17,7 @@ name: "Simrik Hiace Morning",
 departure: "5:30 AM",
 arrival: "1:00 PM",
 price: 1000,
+timeOfDay: "day", // NEW
 features: ["A/C", "Wi-Fi"],
 amenities: ["Water Bottle", "Reclining Seats"],
 gallery: [hiaceSeat1, hiaceSeat2, hiaceSeat3],
@@ -30,6 +32,7 @@ name: "Simrik Hiace Electric (EV)",
 departure: "8:00 AM",
 arrival: "3:00 PM",
 price: 1200,
+timeOfDay: "day", // NEW
 features: ["Electric EV", "Silent Cabin", "A/C", "Wi-Fi", "USB Charging Ports"],
 amenities: ["Water Bottle", "Comfort Reclining Seats", "Eco-Friendly Ride"],
 gallery: [hiaceSeat1, hiaceSeat2],
@@ -44,6 +47,7 @@ name: "Simrik Hiace Night",
 departure: "8:30 PM",
 arrival: "5:00 AM",
 price: 950,
+timeOfDay: "night", // NEW
 features: ["Non A/C", "Music System"],
 amenities: ["Blanket", "Neck Pillow"],
 gallery: [hiaceSeat3, hiaceSeat2, hiaceSeat1],
@@ -57,7 +61,8 @@ const [expandedHiaceId, setExpandedHiaceId] = useState(hiaces[0].id);
 const [expandedTab, setExpandedTab] = useState("amenities");
 const [expandedImage, setExpandedImage] = useState(null);
 
-// filters (price + features only)
+// filters (time of day + price + features)
+const [timeFilter, setTimeFilter] = useState("both"); // NEW: both / day / night
 const [priceFilter, setPriceFilter] = useState("any"); // any / under1000 / 1000-1500 / above1500
 const [featureFilters, setFeatureFilters] = useState({
 ac: false,
@@ -133,11 +138,15 @@ setFeatureFilters((prev) => ({ ...prev, [key]: !prev[key] }));
 };
 
 const clearAllFilters = () => {
+setTimeFilter("both"); // reset NEW filter
 setPriceFilter("any");
 setFeatureFilters({ ac: false, wifi: false, electric: false });
 };
 
 const filteredHiaces = hiaces.filter((v) => {
+// time of day filter
+if (timeFilter !== "both" && v.timeOfDay !== timeFilter) return false;
+
 // price filter
 if (priceFilter === "under1000" && v.price >= 1000) return false;
 if (priceFilter === "1000-1500" && (v.price < 1000 || v.price > 1500))
@@ -166,7 +175,7 @@ return (
     <div className="max-w-full min-h-screen bg-[rgba(255,255,255,0.4)] backdrop-blur-sm px-3 py-6 sm:px-4 md:px-8 lg:px-12">
     {/* TITLE */}
     <div className="max-w-5xl mx-auto mb-5">
-        <h1 className="text-center text-l sm:text-3xl  font-bold text-[#0f172a]">
+        <h1 className="text-center text-xl sm:text-2xl font-semibold text-[#0f172a]">
         Hiace Booking
         </h1>
     </div>
@@ -187,8 +196,50 @@ return (
             </button>
         </div>
 
-        {/* PRICE */}
+        {/* TIME OF DAY – NEW */}
         <div className="border-t border-[#e5e7eb] pt-3 mt-2">
+            <p className="text-[11px] uppercase tracking-[0.16em] text-[#6b7280] mb-1">
+            Time of Day
+            </p>
+            <div className="space-y-1 text-[13px] text-[#111827]">
+            <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                type="radio"
+                name="timeOfDay"
+                className="accent-[#059669]"
+                value="both"
+                checked={timeFilter === "both"}
+                onChange={() => setTimeFilter("both")}
+                />
+                <span>Both</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                type="radio"
+                name="timeOfDay"
+                className="accent-[#059669]"
+                value="day"
+                checked={timeFilter === "day"}
+                onChange={() => setTimeFilter("day")}
+                />
+                <span>Day</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                type="radio"
+                name="timeOfDay"
+                className="accent-[#059669]"
+                value="night"
+                checked={timeFilter === "night"}
+                onChange={() => setTimeFilter("night")}
+                />
+                <span>Night</span>
+            </label>
+            </div>
+        </div>
+
+        {/* PRICE */}
+        <div className="border-t border-[#e5e7eb] pt-3 mt-3">
             <p className="text-[11px] uppercase tracking-[0.16em] text-[#6b7280] mb-1">
             Price (per person)
             </p>
