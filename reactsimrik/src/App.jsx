@@ -10,7 +10,7 @@ import RentalDetails from "./components/RentalDetails";
 import Bus from "./components/Bus";
 import Jeep from "./components/Jeep";
 import Hiace from "./components/Hiace";
-
+import Ev from "./components/Ev";
 import Terms from "./components/Terms";
 
 // This component decides when to show navbar
@@ -61,6 +61,7 @@ function App() {
           <Route path="/bus" element={<Bus />} />
           <Route path="/jeep" element={<Jeep/>} />
           <Route path="/hiace" element={<Hiace />} />
+          <Route path="/ev" element={<Ev />} />
           <Route path="/terms-details" element={<Terms />} />
         </Routes>
       </Layout>
